@@ -11,7 +11,11 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # History settings
 HISTSIZE=512
-SAVEHIST=512
+SAVEHIST=$HISTSIZE
+HISTCONTROL=ignoreboth
+HISTIGNORE="ls:cd:pwd:exit:date:* --help"
 
 # Plugins
 plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
