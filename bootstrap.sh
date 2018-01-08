@@ -55,7 +55,7 @@ in_array() {
 
 dotfiles_root=$PWD
 dependencies=(git)
-excluded=(. .. .git .gitignore bootstrap.sh README.md .DS_Store .idea)
+excluded=(. .. .git .gitignore bootstrap.sh README.md .DS_Store .idea vscode-settings.json)
 
 
 #-----------------------------------------------------------------------------
