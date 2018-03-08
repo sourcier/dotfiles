@@ -10,15 +10,22 @@
     "workbench.startupEditor": "welcomePage",
     "workbench.editor.enablePreview": false,
     "workbench.panel.defaultLocation": "right",
+    "workbench.colorTheme": "Ayu Mirage",
+    "workbench.iconTheme": "ayu",
 
     "terminal.integrated.fontFamily": "SourceCodePro Nerd Font",
     "terminal.integrated.shellArgs.osx": [],
     "terminal.integrated.scrollback": 9999,
     "terminal.integrated.copyOnSelection": true,
 
+    "search.location": "panel",
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
         "**/public": true
-    }
+    },
+    
+    "debug.inlineValues": true,
+    "debug.openExplorerOnEnd": true,
+    "debug.hideActionBar": true
 }
