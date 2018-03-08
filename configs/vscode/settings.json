@@ -34,8 +34,9 @@
 
     "subtleBrackets.styles": { 
         "global": { 
-            "border": "unset",
-            "backgroundColor": "#ff69b4"
+            "borderColor": "transparent",
+            "borderWidth": "0px",
+            "backgroundColor": "#e90074"
         }
     },
     
