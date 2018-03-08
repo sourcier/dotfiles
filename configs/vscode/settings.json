@@ -1,0 +1,24 @@
+{
+    "window.zoomLevel": 0,
+    "window.restoreWindows": "all",
+    "window.restoreFullscreen": true,
+    "window.newWindowDimensions": "fullscreen",
+    "window.openFoldersInNewWindow": "on",
+    
+    "editor.minimap.enabled": false,
+    
+    "workbench.startupEditor": "welcomePage",
+    "workbench.editor.enablePreview": false,
+    "workbench.panel.defaultLocation": "right",
+
+    "terminal.integrated.fontFamily": "SourceCodePro Nerd Font",
+    "terminal.integrated.shellArgs.osx": [],
+    "terminal.integrated.scrollback": 9999,
+    "terminal.integrated.copyOnSelection": true,
+
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/public": true
+    }
+}
