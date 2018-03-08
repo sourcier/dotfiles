@@ -6,6 +6,7 @@
     "window.openFoldersInNewWindow": "on",
     
     "editor.minimap.enabled": false,
+    "editor.matchBrackets": false,
     
     "workbench.startupEditor": "welcomePage",
     "workbench.editor.enablePreview": false,
@@ -27,5 +28,16 @@
     
     "debug.inlineValues": true,
     "debug.openExplorerOnEnd": true,
-    "debug.hideActionBar": true
+    "debug.hideActionBar": true,
+
+    "files.hotExit": "off",
+
+    "subtleBrackets.styles": { 
+        "global": { 
+            "border": "unset",
+            "backgroundColor": "#ff69b4"
+        }
+    },
+    
+    "code-runner.showRunIconInEditorTitleMenu": false
 }
