@@ -26,7 +26,6 @@
         "**/public": true
     },
     
-    "debug.inlineValues": true,
     "debug.openExplorerOnEnd": true,
     "debug.openDebug": "openOnSessionStart",
     "debug.internalConsoleOptions": "openOnSessionStart",
