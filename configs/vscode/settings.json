@@ -29,6 +29,7 @@
     "debug.inlineValues": true,
     "debug.openExplorerOnEnd": true,
     "debug.openDebug": "openOnSessionStart",
+    "debug.internalConsoleOptions": "openOnSessionStart",
 
     "files.hotExit": "off",
 
