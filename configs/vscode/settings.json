@@ -40,5 +40,8 @@
         }
     },
     
-    "code-runner.showRunIconInEditorTitleMenu": false
+    "code-runner.showRunIconInEditorTitleMenu": false,
+
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false
 }
