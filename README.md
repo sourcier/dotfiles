@@ -2,17 +2,13 @@
 
 ## Dependencies
 
-### Homebrew
-
-Install homebrew
+### Install homebrew
 
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-### oh-my-zsh
-
-Install oh-my-zsh
+### Install oh-my-zsh
 
 ```
 $ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -26,12 +22,16 @@ $ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/the
 
 Dowloand Nerd font from: https://nerdfonts.com
 
-### NVM
-
-Install nvm:
+### Install nvm
 
 ```
 $ brew install nvm
+```
+
+### install jenv
+
+```
+brew install jenv
 ```
 
 ## Installation
