@@ -1,21 +1,40 @@
-# dotfiles
+# Dotfiles
 
 ## Dependencies
 
-* homebrew
-* jenv
+### Homebrew
+
+Install homebrew
+
+```
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+### oh-my-zsh
+
+Install oh-my-zsh
+
+```
+$ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+Download powerlevel9k theme
+
+```
+$ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+```
+
+Dowloand Nerd font from: https://nerdfonts.com
 
 ### NVM
 
 Install nvm:
 
 ```
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+$ brew install nvm
 ```
 
 ## Installation
-
-
 
 ```bash
 $ git clone git@github.com:sourcier/dotfiles.git
