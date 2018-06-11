@@ -14,7 +14,7 @@
     "workbench.colorTheme": "Ayu Mirage",
     "workbench.iconTheme": "ayu",
 
-    "terminal.integrated.fontFamily": "SourceCodePro Nerd Font",
+    "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
     "terminal.integrated.shellArgs.osx": [],
     "terminal.integrated.scrollback": 9999,
     "terminal.integrated.copyOnSelection": true,
