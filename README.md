@@ -22,16 +22,10 @@ $ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/the
 
 Dowloand Nerd font from: https://nerdfonts.com
 
-### Install nvm
+### Install asdf
 
 ```
-$ brew install nvm
-```
-
-### install jenv
-
-```
-brew install jenv
+$ brew install asdf
 ```
 
 ## Installation
@@ -44,3 +38,22 @@ $ ./bootstrap.sh
 ```
 
 Reload your terminal
+
+## Config
+
+### node
+
+```
+$ asdf plugin-add nodejs
+$ bash /usr/local/opt/asdf/plugins/nodejs/bin/import-release-team-keyring
+$ asdf install nodejs <version>
+$ asdf global nodejs <version>
+```
+
+### java
+
+```
+$ asdf plugin-add java
+$ asdf install java <version>
+$ asdf global java <version>
+```
