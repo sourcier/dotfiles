@@ -3,7 +3,7 @@ export ZSH=/Users/rrajaratnam/.oh-my-zsh
 # History settings
 HISTSIZE=1024
 SAVEHIST=$HISTSIZE
-HISTORY_IGNORE="ls:cd:pwd:exit:date:* --help"
+HISTORY_IGNORE="(ls|cd|pwd|exit|date|* --help)"
 setopt HIST_IGNORE_ALL_DUPS
 
 # Theme settings
