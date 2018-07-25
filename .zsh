@@ -1,10 +1,10 @@
 export ZSH=/Users/rrajaratnam/.oh-my-zsh
 
 # History settings
-export HISTSIZE=512
-export SAVEHIST=$HISTSIZE
-export HISTCONTROL=ignoreboth
-export HISTIGNORE="ls:cd:pwd:exit:date:* --help"
+HISTSIZE=1024
+SAVEHIST=$HISTSIZE
+HISTORY_IGNORE="ls:cd:pwd:exit:date:* --help"
+setopt HIST_IGNORE_ALL_DUPS
 
 # Theme settings
 POWERLEVEL9K_MODE="nerdfont-complete"
