@@ -7,7 +7,9 @@ HISTORY_IGNORE="(ls|cd|pwd|exit|date|* --help)"
 setopt HIST_IGNORE_ALL_DUPS
 
 # Theme settings
-ZSH_THEME="robbyrussell"
+POWERLEVEL9K_DISABLE_RPROMPT=true
+POWERLEVEL9K_MODE='nerdfont-complete'
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Plugins
 plugins=(git)
