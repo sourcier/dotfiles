@@ -1,4 +1,4 @@
-export ZSH=/Users/roger/.oh-my-zsh
+export ZSH=/Users/rrajaratnam/.oh-my-zsh
 
 # History settings
 HISTSIZE=1024
