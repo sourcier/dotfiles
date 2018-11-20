@@ -27,12 +27,6 @@ $ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/the
 
 Dowloand Nerd font from: https://nerdfonts.com
 
-### Install asdf
-
-```
-$ brew install asdf
-```
-
 ## Installation
 
 ```bash
@@ -58,19 +52,9 @@ Add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
 plugins=(zsh-autosuggestions)
 ```
 
-### node
+### nvm
 
 ```
-$ asdf plugin-add nodejs
-$ bash /usr/local/opt/asdf/plugins/nodejs/bin/import-release-team-keyring
-$ asdf install nodejs <version>
-$ asdf global nodejs <version>
-```
-
-### java
-
-```
-$ asdf plugin-add java
-$ asdf install java <version>
-$ asdf global java <version>
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+$ nvm install stable
 ```
