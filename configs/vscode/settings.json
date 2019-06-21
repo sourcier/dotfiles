@@ -7,12 +7,14 @@
     
     "editor.minimap.enabled": false,
     "editor.matchBrackets": false,
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'Dank Mono', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 14,
     
     "workbench.startupEditor": "welcomePage",
     "workbench.editor.enablePreview": false,
     "workbench.panel.defaultLocation": "right",
-    "workbench.colorTheme": "Ayu Mirage",
-    "workbench.iconTheme": "ayu",
+    "workbench.colorTheme": "Dark++ Italic",
 
     "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
     "terminal.integrated.shellArgs.osx": [],
@@ -32,16 +34,12 @@
 
     "files.hotExit": "off",
 
-    "subtleBrackets.styles": { 
-        "global": { 
-            "borderColor": "transparent",
-            "borderWidth": "0px",
-            "backgroundColor": "#e90074"
-        }
+    "subtleBrackets.style": { 
+        "borderColor": "transparent",
+        "borderWidth": "0px",
+        "backgroundColor": "#e90074"
     },
     
-    "code-runner.showRunIconInEditorTitleMenu": false,
-
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false
 }
