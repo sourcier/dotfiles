@@ -57,8 +57,8 @@ plugins=(zsh-autosuggestions)
 ### nvm
 
 ```
-$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-$ nvm install stable
+$ git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
+$ plugins=(zsh-nvm)
 ```
 
 ### dnsmasq

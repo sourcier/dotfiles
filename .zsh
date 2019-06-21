@@ -11,7 +11,10 @@ POWERLEVEL9K_DISABLE_RPROMPT=true
 POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
+# NVM settings
+NVM_AUTO_USE=true
+
 # Plugins
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
