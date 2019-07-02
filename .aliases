@@ -1,3 +1,0 @@
-if [ -d "/Applications/SourceTree.app" ]; then
-    alias stree="open -a /Applications/SourceTree.app ."
-fi
