@@ -7,9 +7,7 @@ HISTORY_IGNORE="(ls|cd|pwd|exit|date|* --help)"
 setopt HIST_IGNORE_ALL_DUPS
 
 # Theme settings
-POWERLEVEL9K_DISABLE_RPROMPT=true
-POWERLEVEL9K_MODE='nerdfont-complete'
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME=powerlevel10k/powerlevel10k
 
 # NVM settings
 NVM_AUTO_USE=true
