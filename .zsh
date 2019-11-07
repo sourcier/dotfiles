@@ -1,4 +1,4 @@
-export ZSH=/Users/rrajaratnam/.oh-my-zsh
+export ZSH="/Users/$(whoami)/.oh-my-zsh"
 
 # History settings
 HISTSIZE=1024
