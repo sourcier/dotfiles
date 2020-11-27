@@ -27,6 +27,8 @@ Download Powerlevel10k theme
 $ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 ```
 
+Download and install nerd font from [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k).
+
 ## Installation
 
 ```bash
