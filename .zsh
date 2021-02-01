@@ -7,6 +7,6 @@ ZSH_THEME=powerlevel10k/powerlevel10k
 NVM_AUTO_USE=true
 
 # Plugins
-plugins=(git zsh-autosuggestions zsh-nvm)
+plugins=(git zsh-autosuggestions zsh-nvm zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
