@@ -76,6 +76,12 @@ Add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
 ```
 $ plugins=(zsh-nvm)
 ```
+## SDKMAN
+
+```
+$ curl -s "https://get.sdkman.io" | bash
+```
+
 ### dnsmasq
 
 ```
