@@ -15,6 +15,10 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 * yarn
 * direnv
 
+### finicky
+
+https://github.com/johnste/finicky
+
 ### Install oh-my-zsh
 
 ```
