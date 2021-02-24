@@ -5,7 +5,8 @@ module.exports = {
       match: [
         /localhost/,
         /meet\.google\.com/,
-        /teams\.microsoft\.com/
+        /teams\.microsoft\.com/,
+        /file:\/\/*/
       ],
       browser: "Google Chrome"
     }
