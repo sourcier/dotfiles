@@ -16,3 +16,5 @@ for file in ~/.env_* ; do
 done
 
 source ~/.aliases
+
+unset PAGER
