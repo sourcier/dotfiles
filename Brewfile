@@ -20,6 +20,7 @@ cask "visual-studio-code"
 cask "iterm2"
 cask "signal"
 cask "calendar-366"
+cask "whatsapp"
 
 cask "qlcolorcode"
 cask "qlimagesize"
