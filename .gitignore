@@ -18,3 +18,5 @@ node_modules/
 
 # Serverless directories
 .serverless/
+
+Brewfile.lock.json
