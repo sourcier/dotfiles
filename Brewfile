@@ -21,6 +21,7 @@ cask "iterm2"
 cask "signal"
 cask "calendar-366"
 cask "whatsapp"
+cask "finicky"
 
 cask "qlcolorcode"
 cask "qlimagesize"
