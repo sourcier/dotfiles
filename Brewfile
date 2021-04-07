@@ -24,6 +24,7 @@ cask "signal"
 cask "calendar-366"
 cask "whatsapp"
 cask "finicky"
+cask "paw"
 
 cask "qlcolorcode"
 cask "qlimagesize"
