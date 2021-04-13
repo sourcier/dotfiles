@@ -6,6 +6,7 @@ brew "direnv"
 brew "git"
 brew "jq"
 brew "tldr"
+brew "awscli"
 
 cask "1password"
 cask "alfred"
