@@ -30,6 +30,8 @@ cask "calendar-366"
 cask "whatsapp"
 cask "finicky"
 cask "paw"
+cask "zoom"
+cask "notion"
 
 cask "qlcolorcode"
 cask "qlimagesize"
