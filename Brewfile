@@ -41,3 +41,4 @@ cask "qlvideo"
 cask "quicklook-json"
 
 mas "Moom", id: 419330170
+mas "Spark", id: 1176895641
