@@ -1,0 +1,13 @@
+[core]
+	excludesFile = /Users/rrajaratnam/.gitignore
+	ignoreCase = false
+[pull]
+	rebase = true
+[push]
+	default = current
+[alias]
+	log = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[user]
+  name = Roger Rrajaratnam
+  email = roger@sourcier.uk
