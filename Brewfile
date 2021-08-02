@@ -18,7 +18,7 @@ cask "adguard"
 cask "appcleaner"
 cask "betterzip"
 cask "docker"
-cask "dask5"
+cask "dash5"
 cask "google-chrome"
 cask "slack"
 cask "suspicious-package"
@@ -43,3 +43,7 @@ cask "quicklook-json"
 
 mas "Moom", id: 419330170
 mas "Spark", id: 1176895641
+mas "Microsoft Word", id: 462054704
+mas "Microsoft Excel", id: 462058435
+mas "Pages", id: 409201541
+mas "Numbers", id: 409203825
