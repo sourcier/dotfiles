@@ -42,7 +42,7 @@ cask "qlvideo"
 cask "quicklook-json"
 
 mas "Moom", id: 419330170
-mas "Spark", id: 1176895641
+mas "Canary Mail App", id: 1236045954
 mas "Microsoft Word", id: 462054704
 mas "Microsoft Excel", id: 462058435
 mas "Pages", id: 409201541
