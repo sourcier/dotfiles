@@ -33,6 +33,7 @@ cask "finicky"
 cask "paw"
 cask "zoom"
 cask "notion"
+cask "vlc"
 
 cask "qlcolorcode"
 cask "qlimagesize"
