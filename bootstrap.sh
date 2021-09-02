@@ -84,10 +84,6 @@ fi
 if [ -d $dotfiles_root ]; then
   pushd $dotfiles_root
 
-  # Update Repo
-  notice "Updating"
-  git pull origin master
-
   # Install
   notice "Installing"
   install
