@@ -7,18 +7,6 @@
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-
-#### Useful packages
-
-* coreutils
-* gnu-sed
-* yarn
-* direnv
-
-### finicky
-
-https://github.com/johnste/finicky
-
 ### Install oh-my-zsh
 
 ```
@@ -32,17 +20,6 @@ $ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powe
 ```
 
 Download and install nerd font from [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k).
-
-## Installation
-
-```bash
-$ git clone git@github.com:sourcier/dotfiles.git
-$ cd dotfiles
-$ chmod u+x bootstrap.sh
-$ ./bootstrap.sh
-```
-
-Reload your terminal
 
 ## Config
 
@@ -91,18 +68,14 @@ Add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
 ```
 $ plugins=(zsh-nvm)
 ```
-### SDKMAN
 
-```
-$ curl -s "https://get.sdkman.io" | bash
+## Bootstrap
+
+```bash
+$ git clone git@github.com:sourcier/dotfiles.git
+$ cd dotfiles
+$ chmod u+x bootstrap.sh
+$ ./bootstrap.sh
 ```
 
-### dnsmasq
-
-```
-$ brew install dnsmasq
-$ echo 'address=/.test/127.0.0.1' > $(brew --prefix)/etc/dnsmasq.conf
-$ sudo mkdir /etc/resolver
-$ sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/test'
-$ sudo brew services start dnsmasq
-```
+Reload your terminal
