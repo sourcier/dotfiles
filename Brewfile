@@ -37,7 +37,7 @@ cask "vlc"
 
 cask "qlcolorcode"
 cask "qlimagesize"
-cask "qlmarkdown"
+cask "qlcommonmark"
 cask "qlstephen"
 cask "qlvideo"
 cask "quicklook-json"
