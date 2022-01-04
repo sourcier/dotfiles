@@ -78,4 +78,6 @@ $ chmod u+x bootstrap.sh
 $ ./bootstrap.sh
 ```
 
+Run ```brew bundle``` to setup apps from ```Brewfile```
+
 Reload your terminal
