@@ -13,3 +13,5 @@
 [user]
   name = Roger Rrajaratnam
   email = roger@sourcier.uk
+[init]
+  defaultBranch = main
