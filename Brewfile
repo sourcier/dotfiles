@@ -34,6 +34,9 @@ cask "obsidian"
 cask "vlc"
 cask "nordvpn"
 
+# Quicklook plugins
+cask "qlmarkdown" # Preview Markdown files
+
 #cask "qlcolorcode"
 #cask "qlimagesize"
 #cask "qlcommonmark"
