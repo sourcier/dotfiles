@@ -57,16 +57,23 @@ Add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
 plugins=(zsh-autosuggestions)
 ```
 
-### nvm
+# fnm
 
-```
-$ git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
+```sh
+$ brew install fnm
 ```
 
-Add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
+Add the following to your .zshrc profile:
 
+```sh
+eval "$(fnm env --use-on-cd)"
 ```
-$ plugins=(zsh-nvm)
+
+## bun
+
+```sh
+$ brew tap oven-sh/bun
+$ brew install bun
 ```
 
 ## Bootstrap
