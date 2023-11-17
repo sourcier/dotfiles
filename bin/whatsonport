@@ -1,0 +1,4 @@
+#!/bin/bash
+
+OUTPUT="$(lsof -n -i4TCP:$1)"
+echo "${OUTPUT}"
