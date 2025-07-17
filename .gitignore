@@ -1,6 +1,10 @@
 # General
 .DS_Store
-.vscode/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.example.json
+!.vscode/settings.example.json
 
 # Logs
 logs
