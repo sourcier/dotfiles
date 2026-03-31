@@ -76,6 +76,36 @@ brew tap oven-sh/bun
 brew install bun
 ```
 
+## Secrets Management
+
+Private environment variables are stored in the macOS Keychain and exported automatically on shell startup. Secrets never exist as plaintext on disk.
+
+### Store a secret
+
+```sh
+secret-set GITHUB_TOKEN ghp_abc123...
+```
+
+### Retrieve a secret
+
+```sh
+secret-get GITHUB_TOKEN
+```
+
+### List all managed secrets
+
+```sh
+secret-list
+```
+
+### Remove a secret
+
+```sh
+secret-del GITHUB_TOKEN
+```
+
+All secrets are namespaced under `env-secret:` in the keychain to avoid collisions with other entries. The `.env_secrets` file is git-ignored and safe to sync across machines — it contains no secret values, only the shell functions that read from the keychain.
+
 ## Bootstrap
 
 ```sh
