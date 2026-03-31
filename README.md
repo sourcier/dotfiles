@@ -2,37 +2,25 @@
 
 ## Dependencies
 
-### Install homebrew
+### Homebrew
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-### Install oh-my-zsh
+
+### Oh My Zsh
 
 ```sh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-Download Powerlevel10k theme
+### Powerlevel10k
 
 ```sh
 git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 ```
 
-Download and install nerd font from [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k).
-
-## Config
-
-### SSH
-
-Update ssh config file `~/.ssh/config`
-
-```
-Host *
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/id_ed25519
-```
+Download and install the [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k).
 
 ### zsh-autosuggestions
 
@@ -40,71 +28,35 @@ Host *
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 
-Add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
-
-```
-plugins=(zsh-autosuggestions)
-```
-
 ### zsh-syntax-highlighting
+
 ```sh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-Add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
+Add both plugins to Oh My Zsh (inside `~/.zshrc`):
 
 ```
-plugins=(zsh-autosuggestions)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 ```
 
-# fnm
+### fnm
 
 ```sh
 brew install fnm
 ```
 
-Add the following to your .zshrc profile:
+### bun
 
 ```sh
-eval "$(fnm env --use-on-cd)"
-```
-
-## bun
-
-```sh
-brew tap oven-sh/bun
 brew install bun
 ```
 
-## Secrets Management
-
-Private environment variables are stored in the macOS Keychain and exported automatically on shell startup. Secrets never exist as plaintext on disk.
-
-### Store a secret
+### SDKMAN
 
 ```sh
-secret-set GITHUB_TOKEN ghp_abc123...
+curl -s "https://get.sdkman.io" | bash
 ```
-
-### Retrieve a secret
-
-```sh
-secret-get GITHUB_TOKEN
-```
-
-### List all managed secrets
-
-```sh
-secret-list
-```
-
-### Remove a secret
-
-```sh
-secret-del GITHUB_TOKEN
-```
-
-All secrets are namespaced under `env-secret:` in the keychain to avoid collisions with other entries. The `.env_secrets` file is git-ignored and safe to sync across machines — it contains no secret values, only the shell functions that read from the keychain.
 
 ## Bootstrap
 
@@ -115,6 +67,42 @@ chmod u+x bootstrap.sh
 ./bootstrap.sh
 ```
 
-Run ```brew bundle``` to setup apps from ```Brewfile```
+Run `brew bundle` to install apps from the `Brewfile`, then reload your terminal.
 
-Reload your terminal
+## Config
+
+### SSH
+
+Update `~/.ssh/config`:
+
+```
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+### Secrets Management
+
+Private environment variables are stored in the macOS Keychain and exported automatically on shell startup. Secrets never exist as plaintext on disk.
+
+```sh
+secret-set GITHUB_TOKEN ghp_abc123...   # store a secret
+secret-get GITHUB_TOKEN                 # retrieve a secret
+secret-list                             # list all managed secrets
+secret-del GITHUB_TOKEN                 # remove a secret
+```
+
+All secrets are namespaced under `env-secret:` in the keychain to avoid collisions with other entries. The `.env_secrets` file is git-ignored and safe to sync across machines — it contains no secret values, only the shell functions that read from the keychain.
+
+### dnsmasq
+
+Route all `.test` domains to localhost for local development.
+
+```sh
+brew install dnsmasq
+echo 'address=/.test/127.0.0.1' > $(brew --prefix)/etc/dnsmasq.conf
+sudo mkdir /etc/resolver
+sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/test'
+sudo brew services start dnsmasq
+```
