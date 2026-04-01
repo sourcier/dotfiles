@@ -7,6 +7,31 @@ description: 'Website exploration for testing using Playwright MCP'
 
 Your goal is to explore the website and identify key functionalities.
 
+## MCP Server Setup
+
+If the Playwright MCP tools are not available, instruct the user to install it using one of the following methods:
+
+**Option 1 — CLI (recommended):**
+
+```sh
+code --add-mcp '{"name":"playwright","command":"pnpx","args":["@playwright/mcp@latest"]}'
+```
+
+**Option 2 — Manual:** Add the following to VS Code `settings.json`:
+
+```json
+"mcp": {
+  "servers": {
+    "playwright": {
+      "command": "pnpx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
+```
+
+Then restart VS Code / reload the Copilot extension and accept the prompt to start the server.
+
 ## Specific Instructions
 
 1. Navigate to the provided URL using the Playwright MCP Server. If no URL is provided, ask the user to provide one.
