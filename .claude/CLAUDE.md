@@ -1,5 +1,11 @@
 # Global Instructions
 
+## Workflow
+
+- Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `git` directly, not a GitKraken MCP tool)
+- Always use background terminals when running commands
+- Never commit or push automatically — always wait for an explicit "commit" or "push" instruction from the user
+
 ## Code Commenting
 
 Write code that speaks for itself. Comment only when necessary to explain WHY, not WHAT.
