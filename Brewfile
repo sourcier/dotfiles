@@ -1,7 +1,7 @@
 # ── Usage ────────────────────────────────────────────────────────────────────
 #
 #   brew bundle --file=/path/to/Brewfile   # run from anywhere
-#   brew bundle                             # run from this directory
+#   brew bundle                            # run from this directory
 #   brew bundle --cleanup                  # also remove anything not listed here
 #
 
@@ -16,6 +16,7 @@ brew "ripgrep"    # Fast grep (used by VS Code search)
 brew "bat"        # Better cat with syntax highlighting
 brew "eza"        # Better ls
 brew "fzf"        # Fuzzy finder
+brew "podman"     # Container CLI (used by Podman Desktop)
 
 # ── Apps ─────────────────────────────────────────────────────────────────────
 cask "adguard"
@@ -24,7 +25,7 @@ cask "appcleaner"
 cask "betterzip"
 cask "calendar-366"
 cask "dash"
-cask "docker"
+cask "podman-desktop"
 cask "finicky"
 cask "firefox"
 cask "google-chrome"
