@@ -1,3 +1,10 @@
+# ── Usage ────────────────────────────────────────────────────────────────────
+#
+#   brew bundle --file=/path/to/Brewfile   # run from anywhere
+#   brew bundle                             # run from this directory
+#   brew bundle --cleanup                  # also remove anything not listed here
+#
+
 # ── CLI tools ────────────────────────────────────────────────────────────────
 brew "mas"        # Mac App Store CLI
 brew "git"
