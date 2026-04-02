@@ -17,6 +17,8 @@ brew "bat"        # Better cat with syntax highlighting
 brew "eza"        # Better ls
 brew "fzf"        # Fuzzy finder
 brew "podman"     # Container CLI (used by Podman Desktop)
+brew "unar"       # RAR and archive extraction (The Unarchiver CLI)
+brew "mole"       # Deep clean and optimize your Mac
 
 # ── Apps ─────────────────────────────────────────────────────────────────────
 cask "adguard"
@@ -31,7 +33,6 @@ cask "firefox"
 cask "google-chrome"
 cask "iterm2"
 cask "microsoft-teams"
-cask "mole"
 cask "nordvpn"
 cask "numi"
 cask "obsidian"
@@ -55,3 +56,4 @@ mas "Microsoft PowerPoint", id: 462062816
 mas "Pages", id: 409201541
 mas "Numbers", id: 409203825
 mas "Keynote", id: 409183694
+mas "The Unarchiver", id: 425424353
