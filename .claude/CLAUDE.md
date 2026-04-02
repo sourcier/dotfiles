@@ -5,6 +5,9 @@
 - Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `git` directly, not a GitKraken MCP tool)
 - Always use background terminals when running commands
 - Never commit or push automatically — always wait for an explicit "commit" or "push" instruction from the user
+- Always favour the simple solution over a complex one
+- If unsure about intent or approach, ask the user before proceeding
+- When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`
 
 ## Code Commenting
 
