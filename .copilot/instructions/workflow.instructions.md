@@ -18,6 +18,9 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 ## Git
 
 - Never commit or push automatically — always wait for an explicit "commit" or "push" instruction from the user
+- In multi-repo workspaces, inspect which repository each change belongs to before staging, committing, or pushing
+- Apply branching rules per repository — do not assume nested repositories follow the same workflow
+- When work spans multiple repositories, stage and commit each repository separately with repo-specific commit messages
 
 ## General
 
