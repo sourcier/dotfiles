@@ -16,6 +16,33 @@ c_list() { echo -e "  \033[1;32m✔\033[0m  $1"; }
 # Error list item
 e_list() { echo -e "  \033[1;31m✖\033[0m  $1"; }
 
+verify_shell_startup() {
+  local startup_log
+  local suspicious_output_pattern
+  startup_log=$(mktemp)
+  suspicious_output_pattern='(^[A-Za-z_][A-Za-z0-9_]*=[^[:space:]]{16,}$|gh[pousr]_|github_pat_|nfp_)'
+
+  TERM_PROGRAM=Apple_Terminal VSCODE_USER_TERMINAL=1 zsh -lic 'exit' > "$startup_log" 2>&1
+  local status=$?
+
+  if [ $status -ne 0 ]; then
+    e_list "shell startup"
+    cat "$startup_log"
+    rm -f "$startup_log"
+    return $status
+  fi
+
+  if grep -Eq "$suspicious_output_pattern" "$startup_log"; then
+    e_list "shell startup"
+    cat "$startup_log"
+    rm -f "$startup_log"
+    return 1
+  fi
+
+  rm -f "$startup_log"
+  c_list "shell startup"
+}
+
 # Check for dependency
 dep() {
   type -p $1 &> /dev/null
@@ -54,7 +81,7 @@ in_array() {
 #-----------------------------------------------------------------------------
 
 dotfiles_root=$PWD
-dependencies=(git)
+dependencies=(git zsh)
 excluded=(. .. .git bootstrap.sh LICENSE.md README.md .DS_Store .vscode configs docs Brewfile Brewfile.lock.json)
 
 
@@ -101,6 +128,12 @@ else
   # Install
   notice "Installing"
   install
+fi
+
+notice "Verifying shell startup"
+if ! verify_shell_startup; then
+  error "shell startup verification failed"
+  exit 1
 fi
 
 #-----------------------------------------------------------------------------

@@ -67,6 +67,8 @@ chmod u+x bootstrap.sh
 ./bootstrap.sh
 ```
 
+Bootstrap now verifies that a fresh zsh login shell does not emit secret-like output after installation.
+
 Run `brew bundle` to install apps from the `Brewfile`, then reload your terminal.
 
 ## Config
@@ -92,6 +94,8 @@ secret-get GITHUB_TOKEN                 # retrieve a secret
 secret-list                             # list all managed secrets
 secret-del GITHUB_TOKEN                 # remove a secret
 ```
+
+Secret names must be valid shell environment variable names such as `GITHUB_TOKEN`.
 
 All secrets are namespaced under `env-secret:` in the keychain to avoid collisions with other entries. The `.env_secrets` file is git-ignored and safe to sync across machines — it contains no secret values, only the shell functions that read from the keychain.
 

@@ -19,7 +19,7 @@ node_modules/
 
 # dotenv environment variables file
 .env.*
-.env_secrets
+!.env_secrets
 
 # Serverless directories
 .serverless/
