@@ -26,4 +26,5 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 
 - Always favour the simple solution over a complex one
 - If unsure about intent or approach, ask the user before proceeding
+- When iterating on an existing UI, prefer structural fixes over one-off spacing tweaks; keep compact labels short, surface important status text as its own badge or label, and use full-bleed separators when the design intent is edge-to-edge alignment
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`

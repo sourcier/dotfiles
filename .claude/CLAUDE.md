@@ -154,3 +154,4 @@ When building user-facing features:
 - Preserve user input on errors
 - Mobile-first responsive design
 - Consistent navigation and help placement
+- When refining an existing interface, prefer structural fixes over one-off spacing tweaks; keep compact labels short, promote important status text into a dedicated badge or label, and use full-bleed separators when the intended visual line should reach the page edge
