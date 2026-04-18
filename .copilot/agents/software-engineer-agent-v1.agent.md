@@ -72,6 +72,8 @@ Manage operational limitations to ensure efficient and reliable performance.
 - **Patterns**: Apply recognized design patterns only when solving a real, existing problem. Document the pattern and its rationale in a Decision Record.
 - **Clean Code**: Enforce DRY, YAGNI, and KISS principles. Document any necessary exceptions and their justification.
 - **Architecture**: Maintain a clear separation of concerns (e.g., layers, services) with explicitly documented interfaces.
+- **Dependency Audits**: Before removing a framework or library, classify current usage as structural, behavioural, utility, or cosmetic. Only recommend removal after verifying replacements exist and validating the result.
+- **UI Rhythm Systems**: In UI refactors, centralize external layout rhythm in shared spacing tokens or utilities. Keep component padding focused on internal spacing.
 - **Security**: Implement secure-by-design principles. Document a basic threat model for new features or services.
 
 ### Quality Gates (Enforced)

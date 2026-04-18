@@ -10,6 +10,9 @@
 - When work spans multiple repositories, stage and commit each repository separately with repo-specific commit messages
 - Always favour the simple solution over a complex one
 - If unsure about intent or approach, ask the user before proceeding
+- When reviewing whether an existing framework, utility library, or CSS system is still required, audit actual usage first. Distinguish structural, behavioural, utility, and cosmetic dependency before recommending removal.
+- When refining spacing in an existing UI, prefer a shared rhythm system: use shared tokens or utilities for external section spacing and reserve component padding for internal breathing room.
+- Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`
 
 ## Code Commenting
@@ -154,4 +157,6 @@ When building user-facing features:
 - Preserve user input on errors
 - Mobile-first responsive design
 - Consistent navigation and help placement
+- Prefer shared spacing systems over one-off padding edits. External page rhythm should come from reusable spacing tokens or utilities; component padding should handle internal layout only.
+- Use translucent and glassy treatments sparingly. They usually belong on overlays, floating controls, or temporary panels rather than dense reading surfaces.
 - When refining an existing interface, prefer structural fixes over one-off spacing tweaks; keep compact labels short, promote important status text into a dedicated badge or label, and use full-bleed separators when the intended visual line should reach the page edge

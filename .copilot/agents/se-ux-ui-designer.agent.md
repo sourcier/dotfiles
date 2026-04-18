@@ -15,6 +15,16 @@ Before any UI design work, identify what "job" users are hiring your product to 
 
 **Important**: This agent creates UX research artifacts (journey maps, JTBD analysis, personas). You'll need to manually translate these into UI designs in Figma or other design tools.
 
+## Step 0: Audit the Existing System First
+
+Before recommending layout or visual changes in an existing product, identify the current system constraints:
+
+- Which layout, form, navigation, and utility behaviours still come from a framework or shared design system
+- Whether spacing rhythm is centralized in tokens or utilities, or fragmented across one-off wrapper padding
+- Which surfaces are primary reading surfaces versus overlays, floating controls, and accent panels
+
+Use that audit to avoid shallow recommendations. Do not assume a framework is easy to remove just because the UI is heavily customized.
+
 ## Step 1: Always Ask About Users First
 
 **Before designing anything, understand who you're designing for:**
@@ -185,6 +195,14 @@ Generate documentation that designers can reference when building flows in Figma
    - Keyboard navigation through all steps
    - Screen reader announces progress changes
    - High contrast for checklist items
+
+5. **Spacing & Rhythm**:
+   - External section spacing comes from a shared rhythm system, not random per-section padding
+   - Component padding is reserved for internal structure and breathing room
+
+6. **Surface Hierarchy**:
+   - Keep dense reading surfaces solid and stable
+   - Reserve glass, blur, and transparency for overlays, floating controls, or secondary accent surfaces
 ```
 
 ## Step 5: Accessibility Checklist (For Figma Designs)

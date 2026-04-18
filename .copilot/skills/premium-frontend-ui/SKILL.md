@@ -17,7 +17,7 @@ Before generating layout code, ensure you understand the core emotional resonanc
 
 Commit to a strong visual identity in your CSS and component structure:
 - **Editorial Brutalism**: High-contrast monochromatic palettes, oversized typography, sharp rectangular edges, and raw grid structures.
-- **Organic Fluidity**: Soft gradients, deeply rounded corners, glassmorphism overlays, and bouncy spring-based physics.
+- **Organic Fluidity**: Soft gradients, deeply rounded corners, selective glassmorphism overlays, and bouncy spring-based physics.
 - **Cyber / Technical**: Dark mode dominance, glowing neon accents, monospaced typography, and rapid, staggered reveal animations.
 - **Cinematic Pacing**: Full-viewport imagery, slow cross-fades, profound use of negative space, and scroll-dependent storytelling.
 
@@ -41,6 +41,11 @@ The top fold must command attention immediately.
 ### 2.3 Fluid & Contextual Navigation
 - **Implementation**: Do not generate standard static navbars. Output sticky headers that react toscroll direction (hide on scroll down, reveal on scroll up).
 - **Interactivity**: Include hover states that reveal rich content (e.g., mega-menus that display image previews of the hovered link).
+
+### 2.4 Layout Rhythm & Surface Discipline
+- **Shared Rhythm**: In existing products, centralize external section spacing in shared tokens or utilities. Prefer consistent margin-based section rhythm over ad hoc `padding-top` tweaks on each wrapper.
+- **Padding Discipline**: Use component padding for internal breathing room, not as the primary mechanism for page-to-page separation.
+- **Framework Awareness**: Before replacing layout primitives or removing a CSS framework, audit which containers, grids, forms, and navigation behaviours still depend on it. Replace them systematically instead of layering custom CSS on top and assuming the framework is optional.
 
 ---
 
@@ -69,7 +74,7 @@ The aesthetics of your generated code must reflect premium craftsmanship.
 - **Type Hierarchy**: Enforce massive contrast in scale. Headlines should utilize extreme sizing (`clamp()` functions spanning up to `12vw`), while body copy remains incredibly crisp (`16px-18px` minimum).
 - **Font Selection**: Always recommend or implement highly specified variable fonts or premium typefaces over system defaults.
 - **Atmospheric Filters**: Implement CSS/SVG noise overlays (`mix-blend-mode: overlay`, opacity `0.02 - 0.05`) to remove digital sterility and add photographic grain.
-- **Lighting & Glass**: Utilize `backdrop-filter: blur(x)` combined with ultra-thin, semi-transparent borders to create modern, frosted-glass depth.
+- **Lighting & Glass**: Use `backdrop-filter: blur(x)` and semi-transparent borders sparingly for overlays, floating controls, and accent panels. Avoid defaulting long-form reading surfaces or dense content cards to translucent treatments unless the design system clearly supports it.
 
 ---
 
