@@ -14,7 +14,7 @@ If the Playwright MCP tools are not available, instruct the user to install it u
 **Option 1 — CLI (recommended):**
 
 ```sh
-code --add-mcp '{"name":"playwright","command":"pnpx","args":["@playwright/mcp@latest"]}'
+code --add-mcp '{"name":"playwright","command":"pnpm","args":["dlx","@playwright/mcp@latest"]}'
 ```
 
 **Option 2 — Manual:** Add the following to VS Code `settings.json`:
@@ -23,8 +23,8 @@ code --add-mcp '{"name":"playwright","command":"pnpx","args":["@playwright/mcp@l
 "mcp": {
   "servers": {
     "playwright": {
-      "command": "pnpx",
-      "args": ["@playwright/mcp@latest"]
+      "command": "pnpm",
+      "args": ["dlx", "@playwright/mcp@latest"]
     }
   }
 }
