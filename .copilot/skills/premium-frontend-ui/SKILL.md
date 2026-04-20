@@ -91,6 +91,8 @@ A beautiful site that stutters is a failure. Enforce strict performance guardrai
 
 ### 5.1 Render Verification Discipline
 - **Serial Browser Checks**: When using Playwright or another browser automation tool to inspect multiple pages, navigate serially or open separate tabs. Parallel navigations and screenshots against one page context produce unreliable visual checks.
+- **Rendered Review Required**: Use Playwright to inspect the live interface before and after meaningful UI changes. Do not sign off based on code inspection alone.
+- **Screenshot Cleanup**: Delete temporary Playwright screenshots once you have extracted the necessary findings, unless the user explicitly asks to keep them.
 - **UI Closure Pass**: Explicitly inspect badge readability, hero-to-first-section spacing, footer divider breathing room, and last-section-to-footer separation before treating a visual task as complete.
 
 ---

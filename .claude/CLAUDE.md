@@ -15,6 +15,8 @@
 - When styling compact chips, eyebrow pills, or badges on light or neutral surfaces, verify the foreground, border, and fill contrast explicitly. Faint accent tokens often need dedicated label colours instead of inheriting the accent directly.
 - Shared top-margin rhythm systems do not automatically solve page endings. Validate the first section after a hero, the last CTA or section before the footer, and the breathing room around footer dividers.
 - When using browser automation for visual QA, inspect pages serially or in separate tabs. Do not issue parallel navigations or screenshots against the same Playwright page context.
+- For any task that changes rendered UI, use Playwright to inspect the live interface before and after the change. Do not rely on code inspection alone for visual verification.
+- Delete temporary screenshots created during Playwright review before handing off, unless the user explicitly asks to keep them.
 - Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`
 
