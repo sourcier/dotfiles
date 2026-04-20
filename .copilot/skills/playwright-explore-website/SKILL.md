@@ -35,8 +35,10 @@ Then restart VS Code / reload the Copilot extension and accept the prompt to sta
 ## Specific Instructions
 
 1. Navigate to the provided URL using the Playwright MCP Server. If no URL is provided, ask the user to provide one.
-2. Identify and interact with 3-5 core features or user flows.
-3. Document the user interactions, relevant UI elements (and their locators), and the expected outcomes.
-4. Close the browser context upon completion.
-5. Provide a concise summary of your findings.
-6. Propose and generate test cases based on the exploration.
+2. If you need to compare multiple pages or breakpoints, inspect them serially or in separate tabs. Do not queue parallel navigations and screenshots against the same Playwright page context.
+3. Identify and interact with 3-5 core features or user flows.
+4. For visual audits, explicitly note supporting-label readability, hero-to-first-section spacing, footer divider spacing, and last-section-to-footer separation when relevant.
+5. Document the user interactions, relevant UI elements (and their locators), and the expected outcomes.
+6. Close the browser context upon completion.
+7. Provide a concise summary of your findings.
+8. Propose and generate test cases based on the exploration.

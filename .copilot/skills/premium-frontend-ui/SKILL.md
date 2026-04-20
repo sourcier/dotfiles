@@ -45,6 +45,8 @@ The top fold must command attention immediately.
 ### 2.4 Layout Rhythm & Surface Discipline
 - **Shared Rhythm**: In existing products, centralize external section spacing in shared tokens or utilities. Prefer consistent margin-based section rhythm over ad hoc `padding-top` tweaks on each wrapper.
 - **Padding Discipline**: Use component padding for internal breathing room, not as the primary mechanism for page-to-page separation.
+- **Readable Small Labels**: Eyebrow pills, chips, and compact badges on light or neutral surfaces need dedicated foreground, border, and fill tokens. Do not assume a faint accent colour remains readable once the surrounding surface changes.
+- **Opening and Ending Transitions**: Audit the first section after a hero and the last section before the footer. Shared top-margin rhythm systems often need local overrides for hero overlap, CTA breathing room, and footer-divider separation.
 - **Framework Awareness**: Before replacing layout primitives or removing a CSS framework, audit which containers, grids, forms, and navigation behaviours still depend on it. Replace them systematically instead of layering custom CSS on top and assuming the framework is optional.
 
 ---
@@ -86,6 +88,10 @@ A beautiful site that stutters is a failure. Enforce strict performance guardrai
 - **Render Optimization**: Apply `will-change: transform` intelligently on complex moving elements, but remove it post-animation to conserve memory.
 - **Responsive Degradation**: Wrap custom cursor logic and heavy hover animations in `@media (hover: hover) and (pointer: fine)` to ensure pristine performance on touch devices.
 - **Accessibility**: Wrap heavy continuous animations in `@media (prefers-reduced-motion: no-preference)`. Never sacrifice user accessibility for aesthetic flair.
+
+### 5.1 Render Verification Discipline
+- **Serial Browser Checks**: When using Playwright or another browser automation tool to inspect multiple pages, navigate serially or open separate tabs. Parallel navigations and screenshots against one page context produce unreliable visual checks.
+- **UI Closure Pass**: Explicitly inspect badge readability, hero-to-first-section spacing, footer divider breathing room, and last-section-to-footer separation before treating a visual task as complete.
 
 ---
 

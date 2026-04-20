@@ -28,6 +28,9 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 - If unsure about intent or approach, ask the user before proceeding
 - When reviewing whether an existing framework, utility library, or CSS system is still required, audit actual usage first. Distinguish structural, behavioural, utility, and cosmetic dependency before recommending removal.
 - When refining spacing in an existing UI, prefer a shared rhythm system: use shared tokens or utilities for external section spacing and reserve component padding for internal breathing room.
+- When styling compact chips, eyebrow pills, or badges on light or neutral surfaces, verify the foreground, border, and fill contrast explicitly. Faint accent tokens often need dedicated label colours instead of inheriting the accent directly.
+- Shared top-margin rhythm systems do not automatically solve page endings. Validate the first section after a hero, the last CTA or section before the footer, and the breathing room around footer dividers.
+- When using browser automation for visual QA, inspect pages serially or in separate tabs. Do not issue parallel navigations or screenshots against the same Playwright page context.
 - Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
 - When iterating on an existing UI, prefer structural fixes over one-off spacing tweaks; keep compact labels short, surface important status text as its own badge or label, and use full-bleed separators when the design intent is edge-to-edge alignment
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`

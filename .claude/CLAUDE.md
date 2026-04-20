@@ -12,6 +12,9 @@
 - If unsure about intent or approach, ask the user before proceeding
 - When reviewing whether an existing framework, utility library, or CSS system is still required, audit actual usage first. Distinguish structural, behavioural, utility, and cosmetic dependency before recommending removal.
 - When refining spacing in an existing UI, prefer a shared rhythm system: use shared tokens or utilities for external section spacing and reserve component padding for internal breathing room.
+- When styling compact chips, eyebrow pills, or badges on light or neutral surfaces, verify the foreground, border, and fill contrast explicitly. Faint accent tokens often need dedicated label colours instead of inheriting the accent directly.
+- Shared top-margin rhythm systems do not automatically solve page endings. Validate the first section after a hero, the last CTA or section before the footer, and the breathing room around footer dividers.
+- When using browser automation for visual QA, inspect pages serially or in separate tabs. Do not issue parallel navigations or screenshots against the same Playwright page context.
 - Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`
 
@@ -157,6 +160,8 @@ When building user-facing features:
 - Preserve user input on errors
 - Mobile-first responsive design
 - Consistent navigation and help placement
+- Validate supporting UI labels in context. Chips, kicker pills, compact badges, and small uppercase labels need enough contrast on every tone variant, not just the default theme.
+- Check the start and end of each page explicitly. The first section after a hero and the final section before the footer often need local spacing adjustments even when a shared rhythm system exists.
 - Prefer shared spacing systems over one-off padding edits. External page rhythm should come from reusable spacing tokens or utilities; component padding should handle internal layout only.
 - Use translucent and glassy treatments sparingly. They usually belong on overlays, floating controls, or temporary panels rather than dense reading surfaces.
 - When refining an existing interface, prefer structural fixes over one-off spacing tweaks; keep compact labels short, promote important status text into a dedicated badge or label, and use full-bleed separators when the intended visual line should reach the page edge

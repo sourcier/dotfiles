@@ -22,6 +22,8 @@ Before recommending layout or visual changes in an existing product, identify th
 - Which layout, form, navigation, and utility behaviours still come from a framework or shared design system
 - Whether spacing rhythm is centralized in tokens or utilities, or fragmented across one-off wrapper padding
 - Which surfaces are primary reading surfaces versus overlays, floating controls, and accent panels
+- Whether small chips, kicker pills, or compact badges rely on low-contrast accent treatments that fail on light or neutral surfaces
+- Whether the first section after a hero and the last section before the footer have explicit spacing, or are relying too heavily on a top-margin rhythm system alone
 
 Use that audit to avoid shallow recommendations. Do not assume a framework is easy to remove just because the UI is heavily customized.
 
@@ -203,6 +205,14 @@ Generate documentation that designers can reference when building flows in Figma
 6. **Surface Hierarchy**:
    - Keep dense reading surfaces solid and stable
    - Reserve glass, blur, and transparency for overlays, floating controls, or secondary accent surfaces
+
+7. **Supporting Label Readability**:
+   - Chips, kicker pills, and compact badges need sufficient text, border, and fill contrast on every tone variant
+   - Do not assume a tinted accent will remain legible once the surrounding surface changes
+
+8. **Page Endings**:
+   - Footer dividers need visible breathing room above and below
+   - The final CTA or section before the footer often needs explicit bottom spacing even when page rhythm is tokenized
 ```
 
 ## Step 5: Accessibility Checklist (For Figma Designs)
