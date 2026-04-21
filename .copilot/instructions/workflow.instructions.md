@@ -35,4 +35,7 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 - Delete temporary screenshots created during Playwright review before handing off, unless the user explicitly asks to keep them.
 - Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
 - When iterating on an existing UI, prefer structural fixes over one-off spacing tweaks; keep compact labels short, surface important status text as its own badge or label, and use full-bleed separators when the design intent is edge-to-edge alignment
+- When the same content family appears across multiple UI surfaces, centralize icon and status mappings in shared helpers or data instead of duplicating page-local variants.
+- When cards mix icons, headings, and status pills, give the badge a dedicated slot or row instead of forcing it to wrap inside the heading flow; explicitly validate the narrow-screen layout.
+- When a user reports a visual inconsistency in one repeated card group, audit sibling groups on the same page for the same drift and confirm equal-height and top-alignment behaviour at desktop and mobile breakpoints.
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`

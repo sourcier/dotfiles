@@ -23,6 +23,8 @@ Before recommending layout or visual changes in an existing product, identify th
 - Whether spacing rhythm is centralized in tokens or utilities, or fragmented across one-off wrapper padding
 - Which surfaces are primary reading surfaces versus overlays, floating controls, and accent panels
 - Whether small chips, kicker pills, or compact badges rely on low-contrast accent treatments that fail on light or neutral surfaces
+- Whether equivalent card groups share iconography, heading structure, and status-badge placement, or have drifted into one-off implementations
+- Whether time-sensitive states such as "launching soon" are surfaced as dedicated badges near the card edge instead of being buried in supporting copy or wrapping awkwardly into the heading
 - Whether the first section after a hero and the last section before the footer have explicit spacing, or are relying too heavily on a top-margin rhythm system alone
 
 Use that audit to avoid shallow recommendations. Do not assume a framework is easy to remove just because the UI is heavily customized.
@@ -213,6 +215,10 @@ Generate documentation that designers can reference when building flows in Figma
 8. **Page Endings**:
    - Footer dividers need visible breathing room above and below
    - The final CTA or section before the footer often needs explicit bottom spacing even when page rhythm is tokenized
+
+9. **Comparable Card Systems**:
+   - Reuse icon treatment, header structure, and status-badge placement across sibling card grids
+   - Validate equal-height and top-alignment rules at desktop and mobile breakpoints instead of assuming one section's fix generalizes cleanly
 ```
 
 ## Step 5: Accessibility Checklist (For Figma Designs)

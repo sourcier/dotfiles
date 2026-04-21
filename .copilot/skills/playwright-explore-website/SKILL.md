@@ -39,8 +39,10 @@ Then restart VS Code / reload the Copilot extension and accept the prompt to sta
 3. Use Playwright to review the rendered UI directly. For implementation or regression checks, inspect the current state first, then verify the updated state after changes instead of relying on code inspection alone.
 4. Identify and interact with 3-5 core features or user flows.
 5. For visual audits, explicitly note supporting-label readability, hero-to-first-section spacing, footer divider spacing, and last-section-to-footer separation when relevant.
-6. Document the user interactions, relevant UI elements (and their locators), and the expected outcomes.
-7. Delete any temporary screenshots you created during the session unless the user explicitly asked to keep them.
-8. Close the browser context upon completion.
-9. Provide a concise summary of your findings.
-10. Propose and generate test cases based on the exploration.
+6. On card-heavy pages, compare equivalent card groups for icon consistency, status-badge placement, equal heights, and top alignment at both desktop and mobile widths.
+7. When a badge such as "Launching soon" appears inside a card, confirm it has a deliberate slot near the card edge and does not collide with the icon-title group when the layout wraps.
+8. Document the user interactions, relevant UI elements (and their locators), and the expected outcomes.
+9. Delete any temporary screenshots you created during the session unless the user explicitly asked to keep them.
+10. Close the browser context upon completion.
+11. Provide a concise summary of your findings.
+12. Propose and generate test cases based on the exploration.

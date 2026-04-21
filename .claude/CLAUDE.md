@@ -18,6 +18,9 @@
 - For any task that changes rendered UI, use Playwright to inspect the live interface before and after the change. Do not rely on code inspection alone for visual verification.
 - Delete temporary screenshots created during Playwright review before handing off, unless the user explicitly asks to keep them.
 - Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
+- When the same content family appears across multiple UI surfaces, centralize icon and status mappings in shared helpers or data instead of duplicating page-local variants.
+- When cards mix icons, headings, and status pills, give the badge a dedicated slot or row instead of forcing it to wrap inside the heading flow; explicitly validate the narrow-screen layout.
+- When a user reports a visual inconsistency in one repeated card group, audit sibling groups on the same page for the same drift and confirm equal-height and top-alignment behaviour at desktop and mobile breakpoints.
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`
 
 ## Code Commenting
@@ -167,3 +170,4 @@ When building user-facing features:
 - Prefer shared spacing systems over one-off padding edits. External page rhythm should come from reusable spacing tokens or utilities; component padding should handle internal layout only.
 - Use translucent and glassy treatments sparingly. They usually belong on overlays, floating controls, or temporary panels rather than dense reading surfaces.
 - When refining an existing interface, prefer structural fixes over one-off spacing tweaks; keep compact labels short, promote important status text into a dedicated badge or label, and use full-bleed separators when the intended visual line should reach the page edge
+- Keep equivalent card systems visually coherent: reuse shared icon/status mappings, separate status badges from the icon-title stack, and verify equal-height/top-alignment behaviour across breakpoints.

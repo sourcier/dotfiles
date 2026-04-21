@@ -46,8 +46,11 @@ The top fold must command attention immediately.
 - **Shared Rhythm**: In existing products, centralize external section spacing in shared tokens or utilities. Prefer consistent margin-based section rhythm over ad hoc `padding-top` tweaks on each wrapper.
 - **Padding Discipline**: Use component padding for internal breathing room, not as the primary mechanism for page-to-page separation.
 - **Readable Small Labels**: Eyebrow pills, chips, and compact badges on light or neutral surfaces need dedicated foreground, border, and fill tokens. Do not assume a faint accent colour remains readable once the surrounding surface changes.
+- **Shared Icon Systems**: When a content family repeats across multiple surfaces, define icon and status mappings in shared helpers or data. Reuse them across bundles, catalogues, and explainer sections so the page feels system-led rather than improvised.
+- **Card Header Architecture**: If a card needs an icon, heading, and a status chip like "Launching soon", group icon and text together and reserve a dedicated top slot or row for the badge. On narrow screens, intentionally stack the badge instead of letting it collide with the heading.
 - **Opening and Ending Transitions**: Audit the first section after a hero and the last section before the footer. Shared top-margin rhythm systems often need local overrides for hero overlap, CTA breathing room, and footer-divider separation.
 - **Framework Awareness**: Before replacing layout primitives or removing a CSS framework, audit which containers, grids, forms, and navigation behaviours still depend on it. Replace them systematically instead of layering custom CSS on top and assuming the framework is optional.
+- **Cross-Surface QA**: When polishing one card grid, audit sibling grids for missing icons, badge drift, equal-height mismatches, and top-alignment inconsistencies across desktop and mobile.
 
 ---
 
@@ -94,6 +97,7 @@ A beautiful site that stutters is a failure. Enforce strict performance guardrai
 - **Rendered Review Required**: Use Playwright to inspect the live interface before and after meaningful UI changes. Do not sign off based on code inspection alone.
 - **Screenshot Cleanup**: Delete temporary Playwright screenshots once you have extracted the necessary findings, unless the user explicitly asks to keep them.
 - **UI Closure Pass**: Explicitly inspect badge readability, hero-to-first-section spacing, footer divider breathing room, and last-section-to-footer separation before treating a visual task as complete.
+- **Comparable Surface Audit**: On card-heavy pages, compare equivalent sections for consistent icon treatment, badge placement, equal heights, and responsive header wrapping before closing the task.
 
 ---
 

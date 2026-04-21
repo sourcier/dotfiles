@@ -76,6 +76,9 @@ Manage operational limitations to ensure efficient and reliable performance.
 - **UI Rhythm Systems**: In UI refactors, centralize external layout rhythm in shared spacing tokens or utilities. Keep component padding focused on internal spacing.
 - **Rendered UI Verification**: For any task that changes visible UI, inspect the live interface with Playwright before and after editing. Do not treat visual work as complete based on code inspection alone.
 - **Artifact Hygiene**: Delete temporary Playwright screenshots before handoff unless the user explicitly asked to keep them.
+- **Shared UI Semantics**: When the same content family appears across multiple surfaces, centralize icon and status mappings in shared helpers or data instead of duplicating page-local variants.
+- **Card Header Architecture**: In responsive card grids, keep icon and heading content grouped and assign status pills a dedicated slot or row. Validate the compact layout explicitly instead of relying on incidental wrapping.
+- **Consistency Audits**: When fixing a visual inconsistency in one repeated section, inspect sibling sections and key breakpoints for the same drift, including missing icons, badge placement, equal heights, and top alignment.
 - **Security**: Implement secure-by-design principles. Document a basic threat model for new features or services.
 
 ### Quality Gates (Enforced)
