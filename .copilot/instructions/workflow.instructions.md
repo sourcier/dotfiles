@@ -22,6 +22,15 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 - Apply branching rules per repository — do not assume nested repositories follow the same workflow
 - When work spans multiple repositories, stage and commit each repository separately with repo-specific commit messages
 
+## Communication
+
+- Default to concise responses. Lead with the result, decision, or next action, then include only the context needed to support it.
+- Prefer short paragraphs. Use headings and lists only when they materially improve scanability.
+- Do not restate full plans, prior summaries, or unchanged assumptions. Report only deltas.
+- Keep progress updates to one or two sentences.
+- Cap optional suggestions at three items unless the user asks for more.
+- Expand only when the user asks for depth or when risk and complexity justify it.
+
 ## General
 
 - Always favour the simple solution over a complex one

@@ -22,7 +22,7 @@ Analyze current repository context and suggest relevant copilot-instruction file
 8. **Match Relevance**: Compare available instructions against identified patterns and requirements
 9. **Present Options**: Display relevant instructions with descriptions, rationale, and availability status including outdated instructions
 10. **Validate**: Ensure suggested instructions would add value not already covered by existing instructions
-11. **Output**: Provide structured table with suggestions, descriptions, and links to both awesome-copilot instructions and similar local instructions
+11. **Output**: Provide a compact table with only relevant gaps or outdated local files. Limit new suggestions to the top 5 unless the user asks for a full inventory. Include the instruction, status, similar local file, and one short rationale.
    **AWAIT** user request to proceed with installation or updates of specific instructions. DO NOT INSTALL OR UPDATE UNLESS DIRECTED TO DO SO.
 12. **Download/Update Assets**: For requested instructions, automatically:
     - Download new instructions to `.github/instructions/` folder
@@ -47,19 +47,18 @@ Analyze current repository context and suggest relevant copilot-instruction file
 
 ## Output Format
 
-Display analysis results in structured table comparing awesome-copilot instructions with existing repository instructions:
+Display analysis results in a compact table comparing awesome-copilot instructions with existing repository instructions. Omit already-installed up-to-date items unless the user asks for a full inventory:
 
-| Awesome-Copilot Instruction | Description | Already Installed | Similar Local Instruction | Suggestion Rationale |
-|------------------------------|-------------|-------------------|---------------------------|---------------------|
-| [blazor.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/blazor.instructions.md) | Blazor development guidelines | ✅ Yes | blazor.instructions.md | Already covered by existing Blazor instructions |
-| [reactjs.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/reactjs.instructions.md) | ReactJS development standards | ❌ No | None | Would enhance React development with established patterns |
-| [java.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/java.instructions.md) | Java development best practices | ⚠️ Outdated | java.instructions.md | applyTo pattern differs: remote uses `'**/*.java'` vs local `'*.java'` - Update recommended |
+| Instruction | Status | Similar Local Instruction | Why It Matters |
+|-------------|--------|---------------------------|----------------|
+| [reactjs.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/reactjs.instructions.md) | ❌ Missing | None | Would add established React guidance not covered locally |
+| [java.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/java.instructions.md) | ⚠️ Outdated | java.instructions.md | Remote version differs and update is recommended |
 
 ## Local Instructions Discovery Process
 
 1. List all `*.instructions.md` files in the `instructions/` directory
 2. For each discovered file, read front matter to extract `description` and `applyTo` patterns
-3. Build comprehensive inventory of existing instructions with their applicable file patterns
+3. Build inventory of existing instructions with their applicable file patterns
 4. Use this inventory to avoid suggesting duplicates
 
 ## Version Comparison Process
@@ -100,11 +99,11 @@ applyTo: '**/*.js,**/*.ts' # Optional: glob patterns for file matching
 - Compare against existing instructions in this repository to avoid duplicates
 - Focus on gaps in current instruction library coverage
 - Validate that suggested instructions align with repository's purpose and standards
-- Provide clear rationale for each suggestion
+- Provide one short rationale for each suggestion
 - Include links to both awesome-copilot instructions and similar local instructions
 - Clearly identify outdated instructions with specific differences noted
 - Consider technology stack compatibility and project-specific needs
-- Don't provide any additional information or context beyond the table and the analysis
+- Keep the result compact: one short table plus at most 3 brief notes. Do not dump a full inventory unless the user asks.
 
 ## Icons Reference
 

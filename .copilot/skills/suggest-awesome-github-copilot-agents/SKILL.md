@@ -21,7 +21,7 @@ Analyze current repository context and suggest relevant Custom Agents files from
 7. **Match Relevance**: Compare available custom agents against identified patterns and requirements
 8. **Present Options**: Display relevant custom agents with descriptions, rationale, and availability status including outdated agents
 9. **Validate**: Ensure suggested agents would add value not already covered by existing agents
-10. **Output**: Provide structured table with suggestions, descriptions, and links to both awesome-copilot custom agents and similar local custom agents
+10. **Output**: Provide a compact table with only relevant gaps or outdated local files. Limit new suggestions to the top 5 unless the user asks for a full inventory. Include the agent, status, similar local file, and one short rationale.
     **AWAIT** user request to proceed with installation or updates of specific custom agents. DO NOT INSTALL OR UPDATE UNLESS DIRECTED TO DO SO.
 11. **Download/Update Assets**: For requested agents, automatically:
     - Download new agents to `.github/agents/` folder
@@ -48,19 +48,18 @@ Analyze current repository context and suggest relevant Custom Agents files from
 
 ## Output Format
 
-Display analysis results in structured table comparing awesome-copilot custom agents with existing repository custom agents:
+Display analysis results in a compact table comparing awesome-copilot custom agents with existing repository custom agents. Omit already-installed up-to-date items unless the user asks for a full inventory:
 
-| Awesome-Copilot Custom Agent                                                                                                                            | Description                                                                                                                                                                | Already Installed | Similar Local Custom Agent         | Suggestion Rationale                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------- | ------------------------------------------------------------- |
-| [amplitude-experiment-implementation.agent.md](https://github.com/github/awesome-copilot/blob/main/agents/amplitude-experiment-implementation.agent.md) | This custom agent uses Amplitude's MCP tools to deploy new experiments inside of Amplitude, enabling seamless variant testing capabilities and rollout of product features | ❌ No             | None                               | Would enhance experimentation capabilities within the product |
-| [launchdarkly-flag-cleanup.agent.md](https://github.com/github/awesome-copilot/blob/main/agents/launchdarkly-flag-cleanup.agent.md)                     | Feature flag cleanup agent for LaunchDarkly                                                                                                                                | ✅ Yes            | launchdarkly-flag-cleanup.agent.md | Already covered by existing LaunchDarkly custom agents        |
-| [principal-software-engineer.agent.md](https://github.com/github/awesome-copilot/blob/main/agents/principal-software-engineer.agent.md)                 | Provide principal-level software engineering guidance with focus on engineering excellence, technical leadership, and pragmatic implementation.                            | ⚠️ Outdated       | principal-software-engineer.agent.md | Tools configuration differs: remote uses `'web/fetch'` vs local `'fetch'` - Update recommended |
+| Agent | Status | Similar Local Agent | Why It Matters |
+|-------|--------|---------------------|----------------|
+| [amplitude-experiment-implementation.agent.md](https://github.com/github/awesome-copilot/blob/main/agents/amplitude-experiment-implementation.agent.md) | ❌ Missing | None | Would add targeted experimentation guidance not covered locally |
+| [principal-software-engineer.agent.md](https://github.com/github/awesome-copilot/blob/main/agents/principal-software-engineer.agent.md) | ⚠️ Outdated | principal-software-engineer.agent.md | Remote version differs and update is recommended |
 
 ## Local Agent Discovery Process
 
 1. List all `*.agent.md` files in `.github/agents/` directory
 2. For each discovered file, read front matter to extract `description`
-3. Build comprehensive inventory of existing agents
+3. Build inventory of existing agents
 4. Use this inventory to avoid suggesting duplicates
 
 ## Version Comparison Process
@@ -85,10 +84,10 @@ Display analysis results in structured table comparing awesome-copilot custom ag
 - Compare against existing agents in this repository to avoid duplicates
 - Focus on gaps in current agent library coverage
 - Validate that suggested agents align with repository's purpose and standards
-- Provide clear rationale for each suggestion
+- Provide one short rationale for each suggestion
 - Include links to both awesome-copilot agents and similar local agents
 - Clearly identify outdated agents with specific differences noted
-- Don't provide any additional information or context beyond the table and the analysis
+- Keep the result compact: one short table plus at most 3 brief notes. Do not dump a full inventory unless the user asks.
 
 ## Icons Reference
 

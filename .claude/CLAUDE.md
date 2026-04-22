@@ -10,6 +10,12 @@
 - When work spans multiple repositories, stage and commit each repository separately with repo-specific commit messages
 - Always favour the simple solution over a complex one
 - If unsure about intent or approach, ask the user before proceeding
+- Default to concise responses. Lead with the result, decision, or next action, then include only the context needed to support it.
+- Prefer short paragraphs. Use headings and lists only when they materially improve scanability.
+- Do not restate full plans, prior summaries, or unchanged assumptions. Report only deltas.
+- Keep progress updates to one or two sentences.
+- Cap optional suggestions at three items unless the user asks for more.
+- Expand only when the user asks for depth or when risk and complexity justify it.
 - When reviewing whether an existing framework, utility library, or CSS system is still required, audit actual usage first. Distinguish structural, behavioural, utility, and cosmetic dependency before recommending removal.
 - When refining spacing in an existing UI, prefer a shared rhythm system: use shared tokens or utilities for external section spacing and reserve component padding for internal breathing room.
 - When styling compact chips, eyebrow pills, or badges on light or neutral surfaces, verify the foreground, border, and fill contrast explicitly. Faint accent tokens often need dedicated label colours instead of inheriting the accent directly.
