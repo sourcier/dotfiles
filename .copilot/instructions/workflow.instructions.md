@@ -42,6 +42,7 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 - When using browser automation for visual QA, inspect pages serially or in separate tabs. Do not issue parallel navigations or screenshots against the same Playwright page context.
 - For any task that changes rendered UI, use Playwright to inspect the live interface before and after the change. Do not rely on code inspection alone for visual verification.
 - Delete temporary screenshots created during Playwright review before handing off, unless the user explicitly asks to keep them.
+- After finishing any Playwright MCP session, always close the browser by calling `mcp_playwright_browser_close` to avoid leaving it in a bad state.
 - Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
 - When iterating on an existing UI, prefer structural fixes over one-off spacing tweaks; keep compact labels short, surface important status text as its own badge or label, and use full-bleed separators when the design intent is edge-to-edge alignment
 - When the same content family appears across multiple UI surfaces, centralize icon and status mappings in shared helpers or data instead of duplicating page-local variants.
