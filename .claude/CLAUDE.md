@@ -31,6 +31,17 @@
 - When a user reports a visual inconsistency in one repeated card group, audit sibling groups on the same page for the same drift and confirm equal-height and top-alignment behaviour at desktop and mobile breakpoints.
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`
 
+## Dependency Auditing
+
+When fixing `pnpm audit` vulnerabilities:
+
+1. Identify the vulnerable package, its patched version, and its dependency path
+2. Check if the **direct dep** in `package.json` has a newer version that pulls in the fix — bump it if so
+3. Only add `pnpm.overrides` when the direct dep is already at its latest and the transitive dep cannot be upgraded any other way
+4. Never run `pnpm update --latest` — it resolves the entire dependency graph and can silently downgrade other packages
+5. After editing `package.json`, run `pnpm install` then `pnpm audit` to verify
+6. Peer dependency warnings after install indicate a version mismatch — check if the ecosystem supports the installed version before assuming latest is correct (e.g. TypeScript 6 vs `^5.0.0` peer requirements)
+
 ## GitHub Actions
 
 - **Local composite actions require caller checkout first.** `uses: ./.github/actions/foo` resolves on the runner filesystem — the repo must already be checked out before that step. Put `actions/checkout@v4` as the first step in the calling job, not inside the composite action.
