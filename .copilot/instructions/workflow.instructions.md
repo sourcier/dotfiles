@@ -44,8 +44,14 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 - Delete temporary screenshots created during Playwright review before handing off, unless the user explicitly asks to keep them.
 - After finishing any Playwright MCP session, always close the browser by calling `mcp_playwright_browser_close` to avoid leaving it in a bad state.
 - Use glass, blur, and transparency selectively. They work best on overlays and accent surfaces; keep primary reading and dense content surfaces solid unless the existing design language clearly supports translucency.
+- Never end CSS gradients in `transparent` — it resolves to `rgba(0,0,0,0)` and browsers interpolate through dark tones, producing a washed-out or discoloured edge on light or coloured backgrounds. Always end in a real colour stop (e.g. `var(--surface-elevated)` or `color-mix(in srgb, var(--accent) 0%, var(--surface))`).
 - When iterating on an existing UI, prefer structural fixes over one-off spacing tweaks; keep compact labels short, surface important status text as its own badge or label, and use full-bleed separators when the design intent is edge-to-edge alignment
 - When the same content family appears across multiple UI surfaces, centralize icon and status mappings in shared helpers or data instead of duplicating page-local variants.
 - When cards mix icons, headings, and status pills, give the badge a dedicated slot or row instead of forcing it to wrap inside the heading flow; explicitly validate the narrow-screen layout.
 - When a user reports a visual inconsistency in one repeated card group, audit sibling groups on the same page for the same drift and confirm equal-height and top-alignment behaviour at desktop and mobile breakpoints.
 - When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/` and `~/workspace/dotfiles/.claude/CLAUDE.md`, keeping both in sync — the bootstrap script handles copying to `~/`
+
+## GitHub Actions
+
+- **Local composite actions require caller checkout first.** `uses: ./.github/actions/foo` resolves on the runner filesystem — the repo must already be checked out before that step. Put `actions/checkout@v4` as the first step in the calling job, not inside the composite action.
+- **Prefer composite actions over reusable workflows for code reuse.** Reusable workflows (`on: workflow_call`) appear as separate entries in the GitHub Actions sidebar; composite actions do not.
