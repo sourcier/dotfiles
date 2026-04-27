@@ -23,6 +23,14 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 - In multi-repo workspaces, inspect which repository each change belongs to before staging, committing, or pushing
 - Apply branching rules per repository — do not assume nested repositories follow the same workflow
 - When work spans multiple repositories, stage and commit each repository separately with repo-specific commit messages
+- Commit message format: Conventional Commits subject line, one blank line, then bullet-point body:
+  ```
+  feat(scope): short summary
+
+  - detail one
+  - detail two
+  ```
+- For any GitHub Actions task, always use the `gh` CLI (`gh run view <id> --repo <owner/repo>`, add `--log-failed` when diagnosing failures) — never fetch web URLs
 
 ## Communication
 
@@ -68,3 +76,5 @@ When fixing `pnpm audit` vulnerabilities:
 
 - **Local composite actions require caller checkout first.** `uses: ./.github/actions/foo` resolves on the runner filesystem — the repo must already be checked out before that step. Put `actions/checkout@v4` as the first step in the calling job, not inside the composite action.
 - **Prefer composite actions over reusable workflows for code reuse.** Reusable workflows (`on: workflow_call`) appear as separate entries in the GitHub Actions sidebar; composite actions do not.
+- **Never interpolate multi-line strings directly into JSON.** Use `jq -n --arg key "$VAR"` to build JSON payloads in shell scripts — it handles newlines, quotes, and special characters safely. Direct string interpolation causes HTTP 400 errors.
+- **Use `head -1` to extract the commit subject** when passing commit messages to APIs or downstream jobs. The full message with body will break JSON payloads.

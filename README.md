@@ -69,6 +69,12 @@ chmod u+x bootstrap.sh
 
 Bootstrap now verifies that a fresh zsh login shell does not emit secret-like output after installation.
 
+After cloning, activate the commit message hook:
+
+```sh
+git config core.hooksPath .githooks
+```
+
 Run `brew bundle` to install apps from the `Brewfile`, then reload your terminal.
 
 ## Config
