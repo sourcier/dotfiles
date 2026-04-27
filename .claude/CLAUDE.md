@@ -2,7 +2,9 @@
 
 ## Workflow
 
-- Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `git` directly, not a GitKraken MCP tool)
+- Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `docker` directly, not a Docker MCP tool)
+- Use the `gh` CLI for all GitHub interactions (issues, PRs, releases, repos) — never use GitHub MCP tools or web browser automation for GitHub tasks
+- Use the `git` CLI for all git operations — never use GUI git tools or git MCP servers
 - Always use background terminals when running commands
 - Never commit or push automatically — always wait for an explicit "commit" or "push" instruction from the user
 - In multi-repo workspaces, inspect which repository each change belongs to before staging, committing, or pushing
