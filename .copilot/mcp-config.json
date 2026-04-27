@@ -3,10 +3,6 @@
     "playwright": {
       "command": "playwright-mcp",
       "args": ["--headless"]
-    },
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
     }
   }
 }

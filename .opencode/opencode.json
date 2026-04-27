@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["~/.claude/CLAUDE.md"],
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": ["playwright-mcp", "--headless"],
+      "enabled": true
+    }
+  }
+}
