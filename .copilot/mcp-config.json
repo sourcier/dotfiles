@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "playwright": {
-      "command": "/Users/rrajaratnam/Library/pnpm/playwright-mcp",
+      "command": "playwright-mcp",
       "args": ["--headless"]
     },
     "github": {
