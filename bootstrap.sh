@@ -61,8 +61,10 @@ install() {
     in_array $file "${excluded[@]}"
     should_install=$?
     if [ $should_install -gt 0 ]; then
-      [ -d "$HOME/$file" ] && rm -rf "$HOME/$file"
-      cp -Rf "$file" "$HOME/$file"
+      # rsync -a handles files and directories uniformly:
+      # files are updated in place; directories are merged so tool-managed
+      # subdirs (e.g. .copilot/ide/) are preserved.
+      rsync -a "$file" "$HOME/"
     fi
   done
 }
