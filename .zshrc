@@ -15,10 +15,11 @@ if [[ "$TERM_PROGRAM" != "vscode" || -n "$VSCODE_USER_TERMINAL" ]]; then
   # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
   [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-  # source all files that begin with .env_
-  for file in ~/.env_* ; do
-      source "$file"
-  done
-
-  source ~/.aliases
 fi
+
+# source all files that begin with .env_
+for file in ~/.env_*(N) ; do
+    [[ -f "$file" ]] && source "$file"
+done
+
+source ~/.aliases
