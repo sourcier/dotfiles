@@ -1,5 +1,5 @@
 [core]
-	excludesFile = /Users/rrajaratnam/.gitignore
+	excludesFile = ~/.gitignore
 	ignoreCase = false
 [pull]
 	rebase = true
