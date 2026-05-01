@@ -132,10 +132,12 @@ else
   install
 fi
 
-notice "Verifying shell startup"
-if ! verify_shell_startup; then
-  error "shell startup verification failed"
-  exit 1
+if [ -z "${SKIP_VERIFY}" ]; then
+  notice "Verifying shell startup"
+  if ! verify_shell_startup; then
+    error "shell startup verification failed"
+    exit 1
+  fi
 fi
 
 #-----------------------------------------------------------------------------
