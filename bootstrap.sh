@@ -132,7 +132,7 @@ else
   install
 fi
 
-if [ -z "${SKIP_VERIFY}" ]; then
+if [ -z "${SKIP_VERIFY}" ] && [ -z "${REMOTE_CONTAINERS}" ] && [ -z "${CODESPACES}" ]; then
   notice "Verifying shell startup"
   if ! verify_shell_startup; then
     error "shell startup verification failed"
