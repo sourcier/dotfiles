@@ -12,7 +12,7 @@
 	logline = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   prune-local = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
 [user]
-  name = Roger Rrajaratnam
+  name = Roger Rajaratnam
   email = roger@sourcier.uk
 [init]
   defaultBranch = main
