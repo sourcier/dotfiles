@@ -7,10 +7,12 @@ description: 'Operational workflow preferences for how GitHub Copilot should beh
 
 ## Tools
 
-- Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `docker` directly, not a Docker MCP tool)
+- Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `docker` directly, not a Docker MCP tool); for any task that can be accomplished with a single CLI command, do not write a script or MCP workflow — use the CLI directly
 - Use the `gh` CLI for all GitHub interactions (issues, PRs, releases, repos) — never use GitHub MCP tools or web browser automation for GitHub tasks
 - Use the `git` CLI for all git operations — never use GUI git tools or git MCP servers
 - Always use background terminals (`isBackground: true`) when running commands
+- Do not use python for scripting — prefer shell scripts for general-purpose automation and orchestration tasks
+- For any task that requires a script use nodejs with @inquirer/cli for user prompts and interaction — never use python or shell scripts that rely on `read` or `prompt` for input, as they do not work in background terminals
 
 ## Package Manager
 

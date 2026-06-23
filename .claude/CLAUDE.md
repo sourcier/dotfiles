@@ -2,7 +2,7 @@
 
 ## Workflow
 
-- Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `docker` directly, not a Docker MCP tool)
+- Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `docker` directly, not a Docker MCP tool); for any task that can be accomplished with a single CLI command, do not write a script or MCP workflow — use the CLI directly
 - Use the `gh` CLI for all GitHub interactions (issues, PRs, releases, repos) — never use GitHub MCP tools or web browser automation for GitHub tasks
 - Use the `git` CLI for all git operations — never use GUI git tools or git MCP servers
 - Always use background terminals when running commands
