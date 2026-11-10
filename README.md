@@ -47,7 +47,7 @@ brew install mise
 ```
 
 [mise manages Node.js](https://mise.jdx.dev/lang/node.html).
-After bootstrap, install the configured Node.js version:
+After bootstrap, install the configured Node.js and pnpm versions:
 
 ```sh
 mise install
@@ -55,21 +55,21 @@ mise exec -- node --version
 ```
 
 The global configuration in `.config/mise/config.toml` sets the default Node.js
-version and enables existing `.nvmrc` and `.node-version` files. Projects can override
-the default with their own version files or `mise.toml`. `engines.node` in
-`package.json` does not select a Node.js version.
+version, manages pnpm, and enables existing `.nvmrc` and `.node-version` files.
+Projects can override the Node.js default with their own version files or `mise.toml`.
+`engines.node` in `package.json` does not select a Node.js version.
 
 Interactive zsh sessions activate mise through `.env_mise`; login shells add
 mise shims through `.zprofile` for non-interactive commands. Scripts that do
 not load either startup file should use `mise exec -- <command>`.
 
-Homebrew manages pnpm; `.env_pnpm` sets `PNPM_HOME` and adds its global
-binaries to `PATH`. Install global CLIs with `pnpm add -g <package>`.
-Install additional Node.js versions with `mise install node@<version>`.
+`.env_pnpm` sets `PNPM_HOME` and adds global package binaries to `PATH`.
+Install global CLIs with `pnpm add -g <package>`. Install additional Node.js
+versions with `mise install node@<version>`.
 
 Open a fresh terminal, run `mise doctor`, and check `command -v node`,
-`node --version`, `pnpm --version`, and version switching inside projects.
-Repeat in VS Code user and Copilot terminals.
+`node --version`, `mise which pnpm`, and `pnpm --version`. Also verify Node.js
+version switching inside projects. Repeat in VS Code user and Copilot terminals.
 
 ### bun
 

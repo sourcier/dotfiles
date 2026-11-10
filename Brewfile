@@ -11,7 +11,6 @@ brew "git"
 brew "gh"         # GitHub CLI
 brew "direnv"     # Per-directory environment variables
 brew "mise"       # Runtime version manager
-brew "pnpm"
 brew "ripgrep"    # Fast grep (used by VS Code search)
 brew "bat"        # Better cat with syntax highlighting
 brew "eza"        # Better ls
