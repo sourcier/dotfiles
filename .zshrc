@@ -1,8 +1,6 @@
-# Skip shell customizations in Copilot agent terminals.
-# VS Code injects VSCODE_USER_TERMINAL=1 into user-created terminals (via settings.json).
-# Copilot agent terminals don't get that injection, so we use it to tell them apart.
-# Fallback: if the env var is missing entirely (e.g. non-VS Code), check TERM_PROGRAM.
-if [[ "$TERM_PROGRAM" != "vscode" || -n "$VSCODE_USER_TERMINAL" ]]; then
+# Agent command shells need tools, not Oh My Zsh, plugins, or prompts.
+if [[ -o interactive && -t 0 && -t 1 &&
+      ( "$TERM_PROGRAM" != "vscode" || -n "$VSCODE_USER_TERMINAL" ) ]]; then
   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
   # Initialization code that may require console input (password prompts, [y/n]
   # confirmations, etc.) must go above this block; everything else may go below.

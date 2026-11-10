@@ -69,17 +69,39 @@ for startup_status in 0 7; do
 done
 echo "PASS: bootstrap paths, merging, repeat runs, failures, and output redaction"
 
+mkdir -p "$HOME/.oh-my-zsh" "$HOME/.cache"
+printf 'export OMZ_LOADED=yes\n' > "$HOME/.oh-my-zsh/oh-my-zsh.sh"
+printf 'export PROMPT_LOADED=yes\n' > "$HOME/.p10k.zsh"
+printf 'export INSTANT_PROMPT_LOADED=yes\n' > "$HOME/.cache/p10k-instant-prompt-$(id -un).zsh"
+printf 'export TOOL_ENV_LOADED=yes\n' > "$HOME/.env_test"
 for mode in terminal vscode-user vscode-agent; do
   case "$mode" in
     terminal) program=Apple_Terminal; user_terminal=1 ;;
     vscode-user) program=vscode; user_terminal=1 ;;
     vscode-agent) program=vscode; user_terminal= ;;
   esac
-  TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" \
-    /bin/zsh -lic '[[ $ZSH == "$HOME/.oh-my-zsh" || $TERM_PROGRAM == vscode ]]' \
+  env -u OMZ_LOADED -u PROMPT_LOADED -u INSTANT_PROMPT_LOADED \
+    TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" \
+    /bin/zsh -lic '[[ -z $OMZ_LOADED && -z $PROMPT_LOADED && -z $INSTANT_PROMPT_LOADED && $TOOL_ENV_LOADED == yes ]]' \
     > "$test_root/result" 2>&1
   test ! -s "$test_root/result" || fail "$mode emitted startup errors"
 done
+for mode in terminal vscode-user vscode-agent; do
+  case "$mode" in
+    terminal) program=Apple_Terminal; user_terminal=1; expected=yes ;;
+    vscode-user) program=vscode; user_terminal=1; expected=yes ;;
+    vscode-agent) program=vscode; user_terminal=; expected= ;;
+  esac
+  /usr/bin/script -q /dev/null env -u OMZ_LOADED -u PROMPT_LOADED -u INSTANT_PROMPT_LOADED \
+    TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" EXPECTED_CUSTOMIZATIONS="$expected" \
+    /bin/zsh -lic '[[ $OMZ_LOADED == "$EXPECTED_CUSTOMIZATIONS" &&
+      $PROMPT_LOADED == "$EXPECTED_CUSTOMIZATIONS" &&
+      $INSTANT_PROMPT_LOADED == "$EXPECTED_CUSTOMIZATIONS" &&
+      $TOOL_ENV_LOADED == yes ]] && print -r -- CUSTOMIZATIONS_OK' \
+    > "$test_root/result" 2>&1 < /dev/null
+  grep -q 'CUSTOMIZATIONS_OK' "$test_root/result" || fail "$mode TTY customization gating"
+done
+echo "PASS: agent shells skip Oh My Zsh and prompts while user TTYs retain them"
 cat > "$test_root/tools/code" <<'EOF'
 #!/bin/bash
 case "${CODE_MODE:-missing}" in
