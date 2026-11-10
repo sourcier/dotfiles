@@ -74,34 +74,70 @@ printf 'export OMZ_LOADED=yes\n' > "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 printf 'export PROMPT_LOADED=yes\n' > "$HOME/.p10k.zsh"
 printf 'export INSTANT_PROMPT_LOADED=yes\n' > "$HOME/.cache/p10k-instant-prompt-$(id -un).zsh"
 printf 'export TOOL_ENV_LOADED=yes\n' > "$HOME/.env_test"
-for mode in terminal vscode-user vscode-agent; do
+cp "$repo/.env_secrets" "$HOME/"
+printf 'export PATH="$TEST_ROOT/tools:$PATH"\n' > "$HOME/.zprofile"
+cat > "$test_root/tools/security" <<'EOF'
+#!/bin/bash
+printf '%s\n' "$1" >> "$TEST_ROOT/keychain-calls"
+case "$1" in
+  dump-keychain) printf '%s\n' '"svce"<blob>="env-secret:DOTFILES_TEST_TOKEN"' ;;
+  find-generic-password) printf '%s\n' fixture-value ;;
+  *) exit 1 ;;
+esac
+EOF
+chmod +x "$test_root/tools/security"
+for mode in terminal vscode-user vscode-agent cli-agent; do
+  agent=0
   case "$mode" in
     terminal) program=Apple_Terminal; user_terminal=1 ;;
     vscode-user) program=vscode; user_terminal=1 ;;
     vscode-agent) program=vscode; user_terminal= ;;
+    cli-agent) program=Apple_Terminal; user_terminal=1; agent=1 ;;
   esac
-  env -u OMZ_LOADED -u PROMPT_LOADED -u INSTANT_PROMPT_LOADED \
-    TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" \
-    /bin/zsh -lic '[[ -z $OMZ_LOADED && -z $PROMPT_LOADED && -z $INSTANT_PROMPT_LOADED && $TOOL_ENV_LOADED == yes ]]' \
+  env -u OMZ_LOADED -u PROMPT_LOADED -u INSTANT_PROMPT_LOADED -u DOTFILES_TEST_TOKEN \
+    TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" DOTFILES_AGENT="$agent" \
+    /bin/zsh -lic '[[ -z $OMZ_LOADED && -z $PROMPT_LOADED && -z $INSTANT_PROMPT_LOADED &&
+      -z $DOTFILES_TEST_TOKEN && $TOOL_ENV_LOADED == yes ]]' \
     > "$test_root/result" 2>&1
   test ! -s "$test_root/result" || fail "$mode emitted startup errors"
 done
-for mode in terminal vscode-user vscode-agent; do
+test ! -e "$test_root/keychain-calls" || fail "non-TTY shells accessed Keychain"
+for mode in terminal vscode-user vscode-agent cli-agent; do
+  agent=0
   case "$mode" in
     terminal) program=Apple_Terminal; user_terminal=1; expected=yes ;;
     vscode-user) program=vscode; user_terminal=1; expected=yes ;;
     vscode-agent) program=vscode; user_terminal=; expected= ;;
+    cli-agent) program=Apple_Terminal; user_terminal=1; agent=1; expected= ;;
   esac
-  /usr/bin/script -q /dev/null env -u OMZ_LOADED -u PROMPT_LOADED -u INSTANT_PROMPT_LOADED \
-    TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" EXPECTED_CUSTOMIZATIONS="$expected" \
+  rm -f "$test_root/keychain-calls"
+  /usr/bin/script -q /dev/null env -u OMZ_LOADED -u PROMPT_LOADED -u INSTANT_PROMPT_LOADED -u DOTFILES_TEST_TOKEN \
+    TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" DOTFILES_AGENT="$agent" EXPECTED_CUSTOMIZATIONS="$expected" \
     /bin/zsh -lic '[[ $OMZ_LOADED == "$EXPECTED_CUSTOMIZATIONS" &&
       $PROMPT_LOADED == "$EXPECTED_CUSTOMIZATIONS" &&
       $INSTANT_PROMPT_LOADED == "$EXPECTED_CUSTOMIZATIONS" &&
+      ( ( -n $EXPECTED_CUSTOMIZATIONS && $DOTFILES_TEST_TOKEN == fixture-value ) ||
+        ( -z $EXPECTED_CUSTOMIZATIONS && -z $DOTFILES_TEST_TOKEN ) ) &&
       $TOOL_ENV_LOADED == yes ]] && print -r -- CUSTOMIZATIONS_OK' \
-    > "$test_root/result" 2>&1 < /dev/null
+    > "$test_root/result" 2>&1 < /dev/null || {
+      cat "$test_root/result"
+      fail "$mode TTY startup"
+    }
   grep -q 'CUSTOMIZATIONS_OK' "$test_root/result" || fail "$mode TTY customization gating"
+  if [[ -z "$expected" && -e "$test_root/keychain-calls" ]]; then
+    fail "$mode accessed Keychain automatically"
+  fi
 done
 echo "PASS: agent shells skip Oh My Zsh and prompts while user TTYs retain them"
+env -u DOTFILES_TEST_TOKEN TERM_PROGRAM=vscode VSCODE_USER_TERMINAL= /bin/zsh -lic \
+  'secret-load DOTFILES_TEST_TOKEN && [[ $DOTFILES_TEST_TOKEN == fixture-value ]]' \
+  > "$test_root/result" 2>&1
+test ! -s "$test_root/result" || fail "secret-load printed a credential"
+if TERM_PROGRAM=vscode VSCODE_USER_TERMINAL= /bin/zsh -lic 'secret-load "invalid-name"' \
+    > "$test_root/result" 2>&1; then
+  fail "secret-load accepted an invalid name"
+fi
+echo "PASS: agent shells avoid Keychain access and support explicit credential loading"
 cat > "$test_root/tools/code" <<'EOF'
 #!/bin/bash
 case "${CODE_MODE:-missing}" in

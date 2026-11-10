@@ -1,5 +1,5 @@
 # Agent command shells need tools, not Oh My Zsh, plugins, or prompts.
-if [[ -o interactive && -t 0 && -t 1 &&
+if [[ -o interactive && -t 0 && -t 1 && "${DOTFILES_AGENT:-0}" != 1 &&
       ( "$TERM_PROGRAM" != "vscode" || -n "$VSCODE_USER_TERMINAL" ) ]]; then
   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
   # Initialization code that may require console input (password prompts, [y/n]

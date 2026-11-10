@@ -4,7 +4,7 @@
   "mcp": {
     "playwright": {
       "type": "local",
-      "command": ["playwright-mcp", "--headless"],
+      "command": ["/bin/zsh", "-lc", "exec \"$HOME/Library/pnpm/playwright-mcp\" \"$@\"", "playwright-mcp", "--headless"],
       "enabled": true
     }
   }

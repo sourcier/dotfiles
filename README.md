@@ -123,6 +123,34 @@ stoponport 3000
 
 ## Config
 
+### AI tools and terminals
+
+In VS Code's **User Settings (JSON)**, merge this setting so user-created
+terminals retain prompts and normal Keychain loading:
+
+```json
+{
+  "terminal.integrated.env.osx": {
+    "VSCODE_USER_TERMINAL": "1"
+  }
+}
+```
+
+Non-TTY command shells and VS Code agent terminals skip Oh My Zsh, prompts,
+and automatic Keychain loading. For other agent launchers that allocate a TTY,
+set `DOTFILES_AGENT=1` in the launch environment. This only prevents fresh
+Keychain loading; credentials inherited from the parent process remain available.
+
+Install the shared Playwright MCP executable:
+
+```sh
+pnpm add -g @playwright/mcp
+```
+
+Copilot and OpenCode launch it through a non-interactive login shell using
+`$HOME/Library/pnpm/playwright-mcp`, so they do not depend on an inherited
+interactive `PATH`. Restart AI tools after updating their configuration.
+
 ### Git identity
 
 Set your default name and email in `.gitconfig`. For a project-specific identity,
@@ -147,7 +175,13 @@ Host *
 
 ### Secrets Management
 
-Private environment variables are stored in the macOS Keychain and exported automatically on shell startup. Secrets never exist as plaintext on disk.
+Private environment variables are stored in the macOS Keychain and exported
+automatically only in human terminal sessions. Agent command shells can load
+individual credentials explicitly without printing them:
+
+```sh
+secret-load GITHUB_TOKEN
+```
 
 ```sh
 secret-set GITHUB_TOKEN ghp_abc123...   # store a secret
@@ -158,7 +192,9 @@ secret-del GITHUB_TOKEN                 # remove a secret
 
 Secret names must be valid shell environment variable names such as `GITHUB_TOKEN`.
 
-All secrets are namespaced under `env-secret:` in the keychain to avoid collisions with other entries. The `.env_secrets` file is git-ignored and safe to sync across machines — it contains no secret values, only the shell functions that read from the keychain.
+All secrets are namespaced under `env-secret:` in the keychain to avoid
+collisions with other entries. The tracked `.env_secrets` file contains only
+shell functions, not secret values.
 
 ### dnsmasq
 

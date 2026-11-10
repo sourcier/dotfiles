@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "playwright": {
-      "command": "playwright-mcp",
-      "args": ["--headless"]
+      "command": "/bin/zsh",
+      "args": ["-lc", "exec \"$HOME/Library/pnpm/playwright-mcp\" \"$@\"", "playwright-mcp", "--headless"]
     }
   }
 }

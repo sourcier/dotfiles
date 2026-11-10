@@ -5,7 +5,8 @@
 - Always prefer CLI tools over MCP servers — use MCP only when there is no CLI equivalent (e.g. use `docker` directly, not a Docker MCP tool); for any task that can be accomplished with a single CLI command, do not write a script or MCP workflow — use the CLI directly
 - Use the `gh` CLI for all GitHub interactions (issues, PRs, releases, repos) — never use GitHub MCP tools or web browser automation for GitHub tasks
 - Use the `git` CLI for all git operations — never use GUI git tools or git MCP servers
-- Always use background terminals when running commands
+- Use background execution for long-running commands or independent work when supported; wait for required results before proceeding. Use the current tool's documented arguments, not editor-specific flags.
+- Prefer a direct CLI command over a script. When scripting is necessary, use shell or Node.js without adding dependencies unnecessarily. Use the assistant's question tool for clarification; avoid interactive terminal prompts in unattended commands.
 - Never commit or push automatically — always wait for an explicit "commit" or "push" instruction from the user
 - In multi-repo workspaces, inspect which repository each change belongs to before staging, committing, or pushing
 - Apply branching rules per repository — do not assume nested repositories follow the same workflow
@@ -39,7 +40,7 @@
 - When the same content family appears across multiple UI surfaces, centralize icon and status mappings in shared helpers or data instead of duplicating page-local variants.
 - When cards mix icons, headings, and status pills, give the badge a dedicated slot or row instead of forcing it to wrap inside the heading flow; explicitly validate the narrow-screen layout.
 - When a user reports a visual inconsistency in one repeated card group, audit sibling groups on the same page for the same drift and confirm equal-height and top-alignment behaviour at desktop and mobile breakpoints.
-- When updating Copilot or Claude instructions, always edit `~/workspace/dotfiles/.copilot/`, `~/workspace/dotfiles/.claude/CLAUDE.md`, and `~/workspace/dotfiles/.opencode/`, keeping all three in sync — the bootstrap script handles copying to `~/`
+- Update shared AI instructions in the actual dotfiles checkout's `.copilot/`, `.claude/CLAUDE.md`, and `.opencode/`, keeping applicable guidance consistent. Resolve the checkout from the current workspace or ask for its location; do not assume a fixed path or edit deployed home copies as the source of truth.
 
 ## Dependency Auditing
 
@@ -122,6 +123,7 @@ Build inclusive interfaces by default:
 
 When writing documentation, blog posts, or technical content:
 
+- Preserve existing Markdown structure. Use an H1 for standalone documents; omit it only when a site template generates the title. Require blog front matter only where the project's schema defines it, not in READMEs or agent instructions.
 - Start with WHY before HOW
 - Use progressive disclosure (simple to complex)
 - One main idea per paragraph
