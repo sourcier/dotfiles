@@ -55,13 +55,19 @@ dep() {
 
 install() {
   local file
+  local rsync_options
   shopt -s dotglob nullglob
   for file in *; do
     if ! in_array "$file" "${excluded[@]}"; then
       # rsync -a handles files and directories uniformly:
       # files are updated in place; directories are merged so tool-managed
       # subdirs (e.g. .copilot/ide/) are preserved.
-      rsync -a -- "$file" "$HOME/" || return 1
+      rsync_options=(-a)
+      if [[ "$file" == .config &&
+            ( -e "$HOME/.config/keepass-sync/config.json" || -L "$HOME/.config/keepass-sync/config.json" ) ]]; then
+        rsync_options+=(--exclude=/.config/keepass-sync/config.json)
+      fi
+      rsync "${rsync_options[@]}" -- "$file" "$HOME/" || return 1
     fi
   done
 }

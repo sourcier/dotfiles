@@ -127,10 +127,12 @@ stoponport 3000
 dependencies bundled into the executable. It requires Node.js 24.7 or newer,
 but no KeePassXC CLI, XML tools, or runtime dependency installation.
 Bootstrap copies the command to `~/bin` and its configuration to
-`~/.config/keepass-sync/config.json`.
+`~/.config/keepass-sync/config.json` on first install only. Existing configuration
+files or symlinks are preserved on subsequent bootstrap runs.
 
-Edit `.config/keepass-sync/config.json` in this checkout before running
-bootstrap. Paths and the group allowlist are configuration, not script defaults.
+After bootstrap, edit `~/.config/keepass-sync/config.json` for your local setup.
+The checkout's `.config/keepass-sync/config.json` is the first-install template.
+Paths and the group allowlist are configuration, not script defaults.
 The supplied config has an **empty `groups` array** and will refuse to sync until
 you explicitly select top-level groups. For example:
 

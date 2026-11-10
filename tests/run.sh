@@ -64,7 +64,18 @@ cmp "$source_root/.config/new" "$HOME/.config/new"
 cmp "$repo/bin/sync-keepass-db" "$HOME/bin/sync-keepass-db"
 test -x "$HOME/bin/sync-keepass-db"
 cmp "$repo/.config/keepass-sync/config.json" "$HOME/.config/keepass-sync/config.json"
+printf '{"groups":["LocalOnly"]}\n' > "$HOME/.config/keepass-sync/config.json"
+cp "$HOME/.config/keepass-sync/config.json" "$test_root/local-sync-config"
+printf 'updated config\n' > "$source_root/.config/new"
 bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1
+cmp "$test_root/local-sync-config" "$HOME/.config/keepass-sync/config.json"
+cmp "$source_root/.config/new" "$HOME/.config/new"
+rm "$HOME/.config/keepass-sync/config.json"
+ln -s "$test_root/local-sync-config" "$HOME/.config/keepass-sync/config.json"
+bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1
+test -L "$HOME/.config/keepass-sync/config.json" || fail "bootstrap replaced a local sync config symlink"
+cmp "$test_root/local-sync-config" "$HOME/.config/keepass-sync/config.json"
+echo "PASS: bootstrap installs missing sync config and preserves local configs and symlinks"
 if FAIL_COPY=1 bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1; then
   fail "bootstrap accepted a failed copy"
 fi
