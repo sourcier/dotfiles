@@ -1,4 +1,19 @@
 #!/bin/bash
 
-OUTPUT="$(lsof -n -i4TCP:$1)"
-echo "${OUTPUT}"
+if [[ $# -ne 1 || ! "$1" =~ ^[0-9]{1,5}$ ]]; then
+  echo "Usage: whatsonport PORT (1-65535)" >&2
+  exit 1
+fi
+
+port=$((10#$1))
+if (( port < 1 || port > 65535 )); then
+  echo "Port must be between 1 and 65535." >&2
+  exit 1
+fi
+
+if ! command -v lsof >/dev/null 2>&1; then
+  echo "lsof is required." >&2
+  exit 1
+fi
+
+lsof -nP -iTCP:"$port" -sTCP:LISTEN

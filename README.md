@@ -54,8 +54,8 @@ mise install
 mise exec -- node --version
 ```
 
-The global configuration in `.config/mise/config.toml` pins Node.js 24.14.0
-and enables existing `.nvmrc` and `.node-version` files. Projects can override
+The global configuration in `.config/mise/config.toml` sets the default Node.js
+version and enables existing `.nvmrc` and `.node-version` files. Projects can override
 the default with their own version files or `mise.toml`. `engines.node` in
 `package.json` does not select a Node.js version.
 
@@ -94,7 +94,9 @@ chmod u+x bootstrap.sh
 mise install
 ```
 
-Bootstrap now verifies that a fresh zsh login shell does not emit secret-like output after installation.
+Bootstrap copies files from the repository directory, even when invoked from
+elsewhere, and stops if a copy fails. It verifies that a fresh zsh login shell
+does not emit secret-like output; captured output is withheld on failure.
 
 After cloning, activate the commit message hook:
 
@@ -104,7 +106,33 @@ git config core.hooksPath .githooks
 
 Run `brew bundle` to install apps from the `Brewfile`, then reload your terminal.
 
+Run the regression checks without modifying your home directory:
+
+```sh
+bash tests/run.sh
+```
+
+Port utilities inspect TCP listeners on IPv4 and IPv6:
+
+```sh
+whatsonport 3000
+stoponport 3000
+```
+
+`stoponport` sends SIGTERM to each listener; it does not force-kill processes.
+
 ## Config
+
+### Git identity
+
+Set your default name and email in `.gitconfig`. For a project-specific identity,
+use `git config --local user.name` and `git config --local user.email` with the
+appropriate values, or configure conditional includes in `.gitconfig`.
+
+### PostgreSQL
+
+Install `postgresql@16` with Homebrew if needed. `.env_postgresql` adds its
+executables to `PATH` only when that version is installed.
 
 ### SSH
 

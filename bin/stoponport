@@ -1,14 +1,40 @@
 #!/bin/bash
-touch temp.text
-lsof -n -i4TCP:$1
-lsof -n -i4TCP:$1 | awk '{print $2}' > temp.text
-pidToStop=`(sed '2q;d' temp.text)`
-> temp.text
-if [[ -n $pidToStop ]]
-then
-kill -9 $pidToStop
-echo "Congrats!! $1 is stopped."
-else
-echo "Sorry nothing running on port $1"
+
+if [[ $# -ne 1 || ! "$1" =~ ^[0-9]{1,5}$ ]]; then
+  echo "Usage: stoponport PORT (1-65535)" >&2
+  exit 1
 fi
-rm temp.text
+
+port=$((10#$1))
+if (( port < 1 || port > 65535 )); then
+  echo "Port must be between 1 and 65535." >&2
+  exit 1
+fi
+
+if ! command -v lsof >/dev/null 2>&1; then
+  echo "lsof is required." >&2
+  exit 1
+fi
+
+pids=$(lsof -nP -t -iTCP:"$port" -sTCP:LISTEN)
+status=$?
+if [[ -z "$pids" && $status -eq 1 ]]; then
+  echo "Nothing listening on port $port."
+  exit 0
+fi
+if [[ $status -ne 0 ]]; then
+  echo "Could not inspect port $port." >&2
+  exit "$status"
+fi
+
+while IFS= read -r pid; do
+  if [[ ! "$pid" =~ ^[1-9][0-9]*$ ]]; then
+    echo "Unexpected process ID from lsof." >&2
+    exit 1
+  fi
+done <<< "$pids"
+
+while IFS= read -r pid; do
+  kill -TERM "$pid" || exit 1
+done <<< "$pids"
+echo "Sent SIGTERM to listeners on port $port."

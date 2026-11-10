@@ -1,0 +1,170 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+test_root=$(mktemp -d "${TMPDIR:-/tmp}/dotfiles-tests.XXXXXX")
+trap 'find "$test_root" -depth -delete' EXIT
+mkdir -p "$test_root/source repo" "$test_root/home" "$test_root/tools" "$test_root/caller"
+source_root="$test_root/source repo"
+export HOME="$test_root/home"
+export PATH="$test_root/tools:/usr/bin:/bin:/usr/sbin:/sbin"
+export TEST_ROOT="$test_root"
+
+fail() {
+  echo "FAIL: $*" >&2
+  exit 1
+}
+
+cp "$repo/bootstrap.sh" "$repo/.zsh" "$repo/.zshrc" "$repo/.aliases" \
+  "$repo/.env_vscode" "$source_root/"
+printf 'file with spaces\n' > "$source_root/space name"
+printf 'hidden\n' > "$source_root/.hidden"
+printf 'caller only\n' > "$test_root/caller/unrelated"
+mkdir "$source_root/tests"
+printf 'not deployed\n' > "$source_root/tests/marker"
+mkdir -p "$HOME/.config"
+printf 'preserved\n' > "$HOME/.config/keep"
+mkdir -p "$source_root/.config"
+printf 'new config\n' > "$source_root/.config/new"
+
+cat > "$test_root/tools/rsync" <<'EOF'
+#!/bin/bash
+if [[ ${FAIL_COPY:-0} == 1 ]]; then
+  exit 23
+fi
+exec /usr/bin/rsync "$@"
+EOF
+cat > "$test_root/tools/zsh" <<'EOF'
+#!/bin/bash
+if [[ -n ${STARTUP_MESSAGE:-} ]]; then
+  printf '%s\n' "$STARTUP_MESSAGE"
+  exit "${STARTUP_STATUS:-0}"
+fi
+exec /bin/zsh "$@"
+EOF
+chmod +x "$test_root/tools/rsync" "$test_root/tools/zsh"
+
+(cd "$test_root/caller" && bash "$source_root/bootstrap.sh") > "$test_root/result" 2>&1
+cmp "$source_root/space name" "$HOME/space name"
+cmp "$source_root/.hidden" "$HOME/.hidden"
+test ! -e "$HOME/unrelated"
+test ! -e "$HOME/tests"
+test -f "$HOME/.config/keep"
+cmp "$source_root/.config/new" "$HOME/.config/new"
+bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1
+if FAIL_COPY=1 bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1; then
+  fail "bootstrap accepted a failed copy"
+fi
+if grep -q 'Verifying shell startup\|Done' "$test_root/result"; then
+  fail "bootstrap continued after a failed copy"
+fi
+for startup_status in 0 7; do
+  if STARTUP_MESSAGE='github_pat_fixture_only' STARTUP_STATUS="$startup_status" \
+      bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1; then
+    fail "bootstrap accepted suspicious or failed startup"
+  fi
+  if grep -q github_pat_fixture_only "$test_root/result"; then
+    fail "bootstrap exposed captured startup output"
+  fi
+done
+echo "PASS: bootstrap paths, merging, repeat runs, failures, and output redaction"
+
+for mode in terminal vscode-user vscode-agent; do
+  case "$mode" in
+    terminal) program=Apple_Terminal; user_terminal=1 ;;
+    vscode-user) program=vscode; user_terminal=1 ;;
+    vscode-agent) program=vscode; user_terminal= ;;
+  esac
+  TERM_PROGRAM="$program" VSCODE_USER_TERMINAL="$user_terminal" \
+    /bin/zsh -lic '[[ $ZSH == "$HOME/.oh-my-zsh" || $TERM_PROGRAM == vscode ]]' \
+    > "$test_root/result" 2>&1
+  test ! -s "$test_root/result" || fail "$mode emitted startup errors"
+done
+cat > "$test_root/tools/code" <<'EOF'
+#!/bin/bash
+case "${CODE_MODE:-missing}" in
+  fail) exit 1 ;;
+  missing) printf '%s\n' "$TEST_ROOT/missing-integration" ;;
+  valid) printf '%s\n' "$TEST_ROOT/integration.zsh" ;;
+esac
+EOF
+printf 'export INTEGRATION_LOADED=yes\n' > "$test_root/integration.zsh"
+chmod +x "$test_root/tools/code"
+for code_mode in fail missing valid; do
+  CODE_MODE="$code_mode" TERM_PROGRAM=vscode /bin/zsh -f -c \
+    'source "$HOME/.env_vscode"; [[ $CODE_MODE != valid || $INTEGRATION_LOADED == yes ]]' \
+    > "$test_root/result" 2>&1
+  test ! -s "$test_root/result" || fail "invalid VS Code integration produced output"
+done
+echo "PASS: terminal modes, absent Oh My Zsh, and VS Code integration guards"
+
+test ! -e "$repo/.env_git"
+git init -q "$test_root/git-project"
+git -C "$test_root/git-project" config user.name "Fixture User"
+git -C "$test_root/git-project" config user.email "fixture@example.test"
+env -u GIT_AUTHOR_NAME -u GIT_AUTHOR_EMAIL -u GIT_COMMITTER_NAME -u GIT_COMMITTER_EMAIL \
+  TERM_PROGRAM=vscode VSCODE_USER_TERMINAL= /bin/zsh -lic \
+  '[[ $(git -C "$TEST_ROOT/git-project" var GIT_AUTHOR_IDENT) == "Fixture User <fixture@example.test> "* ]]'
+echo "PASS: repository-local Git identity survives shell startup"
+
+cat > "$test_root/tools/brew" <<'EOF'
+#!/bin/bash
+[[ "$*" == "--prefix postgresql@16" ]] || exit 1
+[[ ${FAIL_BREW:-0} == 0 ]] || exit 1
+printf '%s\n' "$TEST_ROOT/postgresql@16"
+EOF
+chmod +x "$test_root/tools/brew"
+/bin/zsh -f -c 'before=$PATH; source "$1"; [[ $PATH == $before ]]' \
+  verify "$repo/.env_postgresql"
+mkdir -p "$test_root/postgresql@16/bin"
+FAIL_BREW=1 /bin/zsh -f -c 'before=$PATH; source "$1"; [[ $PATH == $before ]]' \
+  verify "$repo/.env_postgresql"
+/bin/zsh -f -c \
+  'source "$1"; before=$PATH; source "$1"; [[ $PATH == $before && $PATH == "$TEST_ROOT/postgresql@16/bin:"* ]]' \
+  verify "$repo/.env_postgresql"
+echo "PASS: PostgreSQL presence checks and repeat sourcing"
+
+cat > "$test_root/tools/lsof" <<'EOF'
+#!/bin/bash
+printf '%s\n' "$*" > "$TEST_ROOT/lsof-args"
+if [[ ${LSOF_STATUS:-0} != 0 ]]; then
+  exit "$LSOF_STATUS"
+fi
+printf '%s\n' "${LSOF_OUTPUT:-12345}"
+EOF
+chmod +x "$test_root/tools/lsof"
+kill() {
+  printf '%s\n' "$*" >> "$TEST_ROOT/signals"
+  return "${KILL_STATUS:-0}"
+}
+export -f kill
+printf 'preserve this file\n' > "$test_root/caller/temp.text"
+(cd "$test_root/caller" && LSOF_OUTPUT=$'12345\n67890' bash "$repo/bin/stoponport" 03000) \
+  > "$test_root/result"
+grep -qx -- '-nP -t -iTCP:3000 -sTCP:LISTEN' "$test_root/lsof-args"
+printf '%s\n' '-TERM 12345' '-TERM 67890' > "$test_root/expected"
+cmp "$test_root/expected" "$test_root/signals"
+test "$(cat "$test_root/caller/temp.text")" = 'preserve this file'
+for utility in stoponport whatsonport; do
+  for port in '' 0 65536 -1 abc '3000,4000'; do
+    if bash "$repo/bin/$utility" "$port" > "$test_root/result" 2>&1; then
+      fail "$utility accepted invalid port '$port'"
+    fi
+  done
+  if bash "$repo/bin/$utility" > "$test_root/result" 2>&1; then
+    fail "$utility accepted a missing port"
+  fi
+  if LSOF_STATUS=2 bash "$repo/bin/$utility" 3000 > "$test_root/result" 2>&1; then
+    fail "$utility ignored lsof failure"
+  fi
+done
+LSOF_STATUS=1 bash "$repo/bin/stoponport" 3000 > "$test_root/result"
+if KILL_STATUS=1 bash "$repo/bin/stoponport" 3000 > "$test_root/result" 2>&1; then
+  fail "stoponport ignored signal failure"
+fi
+if LSOF_OUTPUT=0 bash "$repo/bin/stoponport" 3000 > "$test_root/result" 2>&1; then
+  fail "stoponport accepted an unsafe PID"
+fi
+bash "$repo/bin/whatsonport" 3000 > "$test_root/result"
+grep -qx -- '-nP -iTCP:3000 -sTCP:LISTEN' "$test_root/lsof-args"
+echo "PASS: port validation, listener selection, graceful signals, and failures"

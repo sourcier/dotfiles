@@ -1,12 +1,11 @@
-export ZSH="/Users/$(whoami)/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Theme settings
 ZSH_THEME=powerlevel10k/powerlevel10k
 
-# NVM settings
-NVM_AUTO_USE=true
-
 # Plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
+if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
+  source "$ZSH/oh-my-zsh.sh"
+fi
