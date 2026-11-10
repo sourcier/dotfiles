@@ -22,10 +22,17 @@ printf 'hidden\n' > "$source_root/.hidden"
 printf 'caller only\n' > "$test_root/caller/unrelated"
 mkdir "$source_root/tests"
 printf 'not deployed\n' > "$source_root/tests/marker"
+mkdir "$source_root/scripts" "$source_root/node_modules"
+printf 'not deployed\n' > "$source_root/package.json"
+printf 'not deployed\n' > "$source_root/pnpm-lock.yaml"
+printf 'not deployed\n' > "$source_root/pnpm-workspace.yaml"
 mkdir -p "$HOME/.config"
 printf 'preserved\n' > "$HOME/.config/keep"
 mkdir -p "$source_root/.config"
 printf 'new config\n' > "$source_root/.config/new"
+mkdir -p "$source_root/bin" "$source_root/.config/keepass-sync"
+cp "$repo/bin/sync-keepass-db" "$source_root/bin/"
+cp "$repo/.config/keepass-sync/config.json" "$source_root/.config/keepass-sync/"
 
 cat > "$test_root/tools/rsync" <<'EOF'
 #!/bin/bash
@@ -49,8 +56,14 @@ cmp "$source_root/space name" "$HOME/space name"
 cmp "$source_root/.hidden" "$HOME/.hidden"
 test ! -e "$HOME/unrelated"
 test ! -e "$HOME/tests"
+for development_file in scripts node_modules package.json pnpm-lock.yaml pnpm-workspace.yaml; do
+  test ! -e "$HOME/$development_file" || fail "bootstrap deployed $development_file"
+done
 test -f "$HOME/.config/keep"
 cmp "$source_root/.config/new" "$HOME/.config/new"
+cmp "$repo/bin/sync-keepass-db" "$HOME/bin/sync-keepass-db"
+test -x "$HOME/bin/sync-keepass-db"
+cmp "$repo/.config/keepass-sync/config.json" "$HOME/.config/keepass-sync/config.json"
 bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1
 if FAIL_COPY=1 bash "$source_root/bootstrap.sh" > "$test_root/result" 2>&1; then
   fail "bootstrap accepted a failed copy"

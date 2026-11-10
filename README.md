@@ -121,6 +121,101 @@ stoponport 3000
 
 `stoponport` sends SIGTERM to each listener; it does not force-kill processes.
 
+### KeePass database sync
+
+`bin/sync-keepass-db` is a standalone Node.js command with its `kdbxweb`
+dependencies bundled into the executable. It requires Node.js 24.7 or newer,
+but no KeePassXC CLI, XML tools, or runtime dependency installation.
+Bootstrap copies the command to `~/bin` and its configuration to
+`~/.config/keepass-sync/config.json`.
+
+Edit `.config/keepass-sync/config.json` in this checkout before running
+bootstrap. Paths and the group allowlist are configuration, not script defaults.
+The supplied config has an **empty `groups` array** and will refuse to sync until
+you explicitly select top-level groups. For example:
+
+```json
+{
+  "masterDb": "~/Library/Mobile Documents/com~apple~CloudDocs/App Data/KeePass/Passwords.kdbx",
+  "sharedDb": "~/Library/Mobile Documents/com~apple~CloudDocs/App Data/KeePass/Shared.kdbx",
+  "groups": ["GroupToShare"],
+  "twoWay": false
+}
+```
+
+Optional `masterKeyFile` and `sharedKeyFile` paths support databases with key
+files. Never put passwords in the configuration. Paths beginning with `~/`
+expand to your home directory; relative paths resolve beside the config file.
+Both databases must already exist and be downloaded locally.
+
+```sh
+sync-keepass-db --dry-run
+sync-keepass-db
+sync-keepass-db --two-way --dry-run
+sync-keepass-db --two-way
+sync-keepass-db --quiet
+sync-keepass-db --config /path/to/another-config.json
+```
+
+Passwords are entered silently in an interactive terminal, never via arguments
+or environment variables. Numbered progress stages go to stderr; `-q` or
+`--quiet` suppresses routine output, not prompts or errors. `--dry-run` encrypts
+and reopens the merged databases in memory without writing files or backups.
+Progress distinguishes existing shared entries checked from the final entries
+prepared for the selected groups, including subgroups. Shared-only content
+outside the selected groups is not included in those counts.
+
+One-way mode leaves the master file untouched while retaining newer shared
+edits in the outgoing shared groups. `--two-way` (or `"twoWay": true` in config)
+also writes shared additions and edits back to the master. Deletions belong in
+the master: shared-side deletions are ignored and restored from master.
+Entries deleted, recycled, or moved into private master groups cannot be
+imported back from shared. Unselected shared groups and root entries are not
+imported into master; existing shared-only content outside the selected groups
+is retained unless it matches a private or deleted master UUID.
+
+Nested groups, UUIDs, protected fields, attachments, custom data, and entry
+history are retained. The newest modification wins and entry histories are
+combined; conflicting entry edits with identical timestamps abort for manual
+resolution in KeePassXC. Equivalent default representations and inactive expiry
+dates do not count as edits. A conflict reports its entry UUID and differing
+field names, never field values; neither file is written. Selected shared groups
+must keep their master UUIDs and
+top-level names. An empty shared database can receive its initial groups.
+KDBX3/AES and KDBX4/Argon2d or Argon2id (version 1.3) are supported, retaining each
+database's credentials, format, cipher, and KDF settings. No plaintext temporary
+files are created.
+
+Before writing, encrypted `*.kdbx.backup.*` recovery copies are created.
+Successful runs delete their backups; failed writes attempt restoration of both
+originals and retain backups, reporting their paths even in quiet mode.
+Files are updated in place, preserving their identity and iCloud sharing
+metadata. These writes are not atomic, including the pair of two-way writes.
+A forced kill or power loss can prevent restoration; use the retained backups
+if recovery is needed.
+
+Close other database apps, ask collaborators to stop editing, and wait for
+iCloud to finish syncing before running the command. The script's locks and
+change checks cannot coordinate remote iCloud writers.
+
+Development sources live in `scripts/keepass-sync/`. Rebuild the committed
+bundle after editing them:
+
+```sh
+pnpm install
+pnpm run build
+pnpm test
+```
+
+Bootstrap excludes the development sources, tests, package manifests, lockfile,
+and `node_modules`; only the bundle and config are deployed. If upgrading from
+the old command, remove `~/bin/export-keepass-shared-db` manually after deploying
+`sync-keepass-db`; bootstrap does not delete obsolete files.
+
+The XML parser is pinned to a patched compatible release through the
+`pnpm-workspace.yaml` override because the latest `kdbxweb` release still requests
+the vulnerable older series. `pnpm audit` checks the resulting dependency graph.
+
 ## Config
 
 ### AI tools and terminals

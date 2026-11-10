@@ -81,7 +81,7 @@ in_array() {
 
 dotfiles_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd) || exit 1
 dependencies=(git zsh rsync)
-excluded=(.git bootstrap.sh LICENSE.md README.md .DS_Store .vscode configs docs tests Brewfile Brewfile.lock.json)
+excluded=(.git bootstrap.sh LICENSE.md README.md .DS_Store .vscode configs docs tests scripts node_modules package.json pnpm-lock.yaml pnpm-workspace.yaml Brewfile Brewfile.lock.json)
 
 
 #-----------------------------------------------------------------------------
