@@ -40,11 +40,36 @@ Add both plugins to Oh My Zsh (inside `~/.zshrc`):
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 ```
 
-### fnm
+### mise
 
 ```sh
-brew install fnm
+brew install mise
 ```
+
+[mise manages Node.js](https://mise.jdx.dev/lang/node.html).
+After bootstrap, install the configured Node.js version:
+
+```sh
+mise install
+mise exec -- node --version
+```
+
+The global configuration in `.config/mise/config.toml` pins Node.js 24.14.0
+and enables existing `.nvmrc` and `.node-version` files. Projects can override
+the default with their own version files or `mise.toml`. `engines.node` in
+`package.json` does not select a Node.js version.
+
+Interactive zsh sessions activate mise through `.env_mise`; login shells add
+mise shims through `.zprofile` for non-interactive commands. Scripts that do
+not load either startup file should use `mise exec -- <command>`.
+
+Homebrew manages pnpm; `.env_pnpm` sets `PNPM_HOME` and adds its global
+binaries to `PATH`. Install global CLIs with `pnpm add -g <package>`.
+Install additional Node.js versions with `mise install node@<version>`.
+
+Open a fresh terminal, run `mise doctor`, and check `command -v node`,
+`node --version`, `pnpm --version`, and version switching inside projects.
+Repeat in VS Code user and Copilot terminals.
 
 ### bun
 
@@ -63,8 +88,10 @@ curl -s "https://get.sdkman.io" | bash
 ```sh
 git clone git@github.com:sourcier/dotfiles.git
 cd dotfiles
+brew bundle
 chmod u+x bootstrap.sh
 ./bootstrap.sh
+mise install
 ```
 
 Bootstrap now verifies that a fresh zsh login shell does not emit secret-like output after installation.
