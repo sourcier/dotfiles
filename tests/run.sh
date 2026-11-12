@@ -15,7 +15,7 @@ fail() {
   exit 1
 }
 
-cp "$repo/bootstrap.sh" "$repo/.zsh" "$repo/.zshrc" "$repo/.aliases" \
+cp "$repo/bootstrap.sh" "$repo/.zsh" "$repo/.zshenv" "$repo/.zshrc" "$repo/.aliases" \
   "$repo/.env_vscode" "$source_root/"
 printf 'file with spaces\n' > "$source_root/space name"
 printf 'hidden\n' > "$source_root/.hidden"
@@ -100,6 +100,11 @@ printf 'export INSTANT_PROMPT_LOADED=yes\n' > "$HOME/.cache/p10k-instant-prompt-
 printf 'export TOOL_ENV_LOADED=yes\n' > "$HOME/.env_test"
 cp "$repo/.env_secrets" "$HOME/"
 printf 'export PATH="$TEST_ROOT/tools:$PATH"\n' > "$HOME/.zprofile"
+/bin/zsh -c '[[ ! -o interactive && $TOOL_ENV_LOADED == yes ]]' \
+  > "$test_root/result" 2>&1 || {
+    fail "non-interactive zsh did not load env files"
+  }
+test ! -s "$test_root/result" || fail "non-interactive zsh emitted startup output"
 cat > "$test_root/tools/security" <<'EOF'
 #!/bin/bash
 printf '%s\n' "$1" >> "$TEST_ROOT/keychain-calls"

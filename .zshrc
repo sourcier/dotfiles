@@ -15,9 +15,4 @@ if [[ -o interactive && -t 0 && -t 1 && "${DOTFILES_AGENT:-0}" != 1 &&
 
 fi
 
-# source all files that begin with .env_
-for file in ~/.env_*(N) ; do
-    [[ -f "$file" ]] && source "$file"
-done
-
 source ~/.aliases

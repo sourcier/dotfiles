@@ -59,9 +59,9 @@ version, manages pnpm, and enables existing `.nvmrc` and `.node-version` files.
 Projects can override the Node.js default with their own version files or `mise.toml`.
 `engines.node` in `package.json` does not select a Node.js version.
 
-Interactive zsh sessions activate mise through `.env_mise`; login shells add
-mise shims through `.zprofile` for non-interactive commands. Scripts that do
-not load either startup file should use `mise exec -- <command>`.
+Zsh loads all `~/.env_*` files from `.zshenv`, including in non-interactive
+shells. Login shells also add mise shims through `.zprofile`; commands that do
+not load zsh startup files should use `mise exec -- <command>`.
 
 `.env_pnpm` sets `PNPM_HOME` and adds global package binaries to `PATH`.
 Install global CLIs with `pnpm add -g <package>`. Install additional Node.js
